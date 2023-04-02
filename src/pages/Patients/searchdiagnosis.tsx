@@ -1,9 +1,23 @@
 import React from "react";
+import Sidebar from "./Components/sidebar";
 
-export default function SearchDiagnosis () {
+export default function SearchDiagnosis() {
     return (
         <>
-            <h1>Diagnosis service list</h1>
+            <div className="grid grid-cols-12 ">
+
+
+                <Sidebar />
+
+
+                <div className="col-span-9">
+                     <h1>Diagnosis service list</h1>
+                </div>
+
+
+
+            </div>
+       
         </>
     )
 }
