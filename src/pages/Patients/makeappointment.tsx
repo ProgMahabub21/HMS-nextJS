@@ -1,9 +1,24 @@
 import React from "react";
+import Sidebar from "./Components/sidebar";
 
-export default function MakeAppointment () {
+export default function MakeAppointment() {
     return (
         <>
-            <h1>Make Appointment</h1>
+
+            <div className="grid grid-cols-12 ">
+
+
+                <Sidebar />
+
+
+                <div className="col-span-9">
+                     <h1>Make Appointment</h1>
+                </div>
+
+
+
+            </div>
+       
         </>
     )
 }
