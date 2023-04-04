@@ -6,7 +6,11 @@ export default function LoginPage() {
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
-        // handle form submission here
+
+        //push to admin page
+
+
+
     };
 
     return (

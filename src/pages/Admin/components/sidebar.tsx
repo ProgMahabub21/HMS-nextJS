@@ -36,9 +36,9 @@ const Sidebar = (props: any) => {
 
             </div>
             <div>
-                <Link href="/Patients/profile" className="flex items-center px-4 py-2 space-x-3 font-bold text-gray-300 hover:text-white">Profile</Link>
-                <Link href="/Patients/changepassword" className="flex items-center px-4 py-2 space-x-3 font-bold text-gray-300 hover:text-white">Change Password </Link>
-                <Link href="/Patients/login" className="flex items-center px-4 py-2 space-x-3 font-bold text-gray-300 hover:text-white">Logout</Link>
+                <Link href="/Admin/users" className="flex items-center px-4 py-2 space-x-3 font-bold text-gray-300 hover:text-white">Profile</Link>
+                <Link href="/Admin/users" className="flex items-center px-4 py-2 space-x-3 font-bold text-gray-300 hover:text-white">Change Password </Link>
+                <Link href="/Admin/login" className="flex items-center px-4 py-2 space-x-3 font-bold text-gray-300 hover:text-white">Logout</Link>
             </div>
             <div>
                 <Link href="/" className="flex items-center px-4 py-2 space-x-3 font-bold text-gray-300 hover:text-white">Contact Us</Link>
