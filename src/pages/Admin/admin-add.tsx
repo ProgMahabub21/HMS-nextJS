@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Sidebar from './components/sidebar';
+
 
 export default function AddAdminPage() {
     const [email, setEmail] = useState('');
@@ -16,7 +16,6 @@ export default function AddAdminPage() {
         <div className="grid grid-cols-12 ">
 
 
-            <Sidebar />
 
 
             <div className="col-span-9">
