@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { SubmitHandler } from 'react-hook-form';
 import  lgimage from '/public/image/login-p.jpg'
-import axios, {isCancel, AxiosError, AxiosResponse} from 'axios';
+import axios , {AxiosInstance, AxiosResponse, AxiosError} from 'axios';
 //import { redirect } from 'next/router';
 
 type LoginFormData = {
@@ -15,9 +15,8 @@ const onSubmit = async (data: LoginFormData) => {
     
 
     //json stringify
-    const jsondata = JSON.stringify(data);
-
-    console.log(jsondata);
+    const emailvalue = data.email;
+    const passvalue = data.password;
 
     // call api and fetch data from " http://localhost:3005/patients/finduser" and match email password
 
@@ -25,7 +24,7 @@ const onSubmit = async (data: LoginFormData) => {
 
     // if not match show error message
     const axios = require("axios");
-    const response = await axios.post("http://localhost:3000/patients/login", jsondata)
+    const response = await axios.post("http://localhost:3000/patients/login", { emailvalue, passvalue })
     
     .then((response: AxiosResponse) => {
 
