@@ -1,5 +1,5 @@
 import React from "react";
-import Sidebar from "./components/sidebar";
+
 
 
 export default function SearchDiagnosis() {
@@ -8,7 +8,7 @@ export default function SearchDiagnosis() {
             <div className="grid grid-cols-12 ">
 
 
-                <Sidebar />
+
 
 
                 <div className="col-span-9">
