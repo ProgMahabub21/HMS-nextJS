@@ -41,14 +41,14 @@ export default function LoginPage() {
 
 
             {
-                errors && <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                errors && <div className="relative px-4 py-3 text-red-700 bg-red-100 border border-red-400 rounded" role="alert">
                     <strong className="font-bold">Error!</strong>
                     <span className="block sm:inline">{errors}</span>
                 </div>
             }
 
-            <div className="flex justify-center items-center h-screen">
-                <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <div className="flex items-center justify-center h-screen">
+                <form onSubmit={handleSubmit} className="px-8 pt-6 pb-8 mb-4 bg-white rounded shadow-md">
 
                     <div className="mb-6">
                         <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email address</label>
