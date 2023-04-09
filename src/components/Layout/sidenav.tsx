@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import React from "react";
 import { FaFlipboard, FaBed } from "react-icons/fa";
+import { TbNote } from 'react-icons/tb'
 import NavItem from "./navitem";
 
 interface Props {
@@ -61,17 +62,22 @@ const Sidenav = ({ children }: Props) => {
                             link: "/admin/doctor/doctor-add",
                         },
                     ],
+                }, {
+                    name: "Apponments",
+
+                    icon: <TbNote />,
+                    children: [
+                        {
+                            name: "Apponments List",
+                            link: "/admin/apponment",
+                        },
+                    ],
                 },
                 {
                     name: "Products",
                     link: "/Admin/products",
                     icon: <FaFlipboard />,
-                },
-                {
-                    name: "Update Admin",
-                    link: "/Admin/update-admin",
-                    icon: <FaFlipboard />,
-                },
+                }
             ];
 
             break;
@@ -115,6 +121,7 @@ const Sidenav = ({ children }: Props) => {
                             <NavItem
                                 key={i}
                                 title={nav.name}
+                                link={nav.link}
                                 icon={nav.icon}
                                 navItems={nav.children}
                             />
@@ -166,7 +173,7 @@ const Sidenav = ({ children }: Props) => {
                         </li>
                         <li>
                             <a
-                                href="#"
+                                href="/admin"
                                 className="flex items-center p-2 text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
                             >
                                 <svg
