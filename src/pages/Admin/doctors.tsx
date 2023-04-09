@@ -1,9 +1,18 @@
 import React from "react";
 import { axiosInstance } from "../common/axios";
-import { Patient } from "@/models/Patient";
+import { Doctor } from "@/models/Doctor";
+import Image from 'next/image';
 
 
-export default function patients({ data }: { data: Patient[] }) {
+export default function doctors({ data }: { data: Doctor[] }) {
+
+
+
+    if (!data || data.length === 0) {
+        return <div>No Data found...</div>
+    }
+
+
     return (
         <>
 
@@ -25,26 +34,34 @@ export default function patients({ data }: { data: Patient[] }) {
                     <tbody>
 
                         {
-                            data.map((patient, i) => {
+                            data.map((doctor, i) => {
                                 return (
                                     <tr className="bg-white dark:bg-gray-800" key={i}>
                                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {patient.id.slice(0, 4)}...
+                                            {doctor.id}...
                                         </th>
                                         <td className="px-6 py-4">
-                                            {patient.name}
+                                            {doctor.name}
                                         </td>
                                         <td className="px-6 py-4">
-                                            {patient.email}
+                                            {doctor.specialization}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            {doctor.email}
                                         </td>
                                         <td className="px-6 py-4">
                                             ********
                                         </td>
                                         <td className="px-6 py-4">
-                                            {patient.phone}
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            {patient.address}
+                                            {/* {doctor.filename} */}
+
+                                            {/* //image */}
+                                            <Image
+                                                src={doctor?.filename}
+                                                alt="Doctor Image"
+                                                width={100}
+                                                height={100}
+                                            />
                                         </td>
                                     </tr>
                                 )
@@ -68,7 +85,7 @@ export default function patients({ data }: { data: Patient[] }) {
 }
 
 export async function getServerSideProps({ }) {
-    const response = await axiosInstance.get<Patient[]>("/patients/finduser")
+    const response = await axiosInstance.get<Doctor[]>("/doctor/finddoctor")
     const data = response.data
     return { props: { data } }
 }

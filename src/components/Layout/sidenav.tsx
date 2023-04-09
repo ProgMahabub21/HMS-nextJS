@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React from "react";
-import { FaFlipboard } from "react-icons/fa";
+import { FaFlipboard, FaBed } from "react-icons/fa";
 import NavItem from "./navitem";
 
 interface Props {
@@ -36,7 +36,7 @@ const Sidenav = ({ children }: Props) => {
                 {
                     name: "Patients",
 
-                    icon: <FaFlipboard />,
+                    icon: <FaBed />,
                     children: [
                         {
                             name: "Patient List",
@@ -44,7 +44,21 @@ const Sidenav = ({ children }: Props) => {
                         },
                         {
                             name: "Add Patient",
-                            link: "/Admin/patients/add-patient",
+                            link: "/admin/patient-add",
+                        },
+                    ],
+                }, {
+                    name: "Doctor",
+
+                    icon: <FaBed />,
+                    children: [
+                        {
+                            name: "Doctor List",
+                            link: "/admin/doctors",
+                        },
+                        {
+                            name: "Add Doctor",
+                            link: "/admin/doctor-add",
                         },
                     ],
                 },

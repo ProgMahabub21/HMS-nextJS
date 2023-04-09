@@ -23,7 +23,7 @@ export default function LoginPage() {
             router.push("/admin/dashboard");
         } catch (error: any) {
             console.log(error);
-            setErrors(error.response.data.message);
+            setErrors(error.response?.data?.message ?? "Something went wrong");
         }
     };
     return (
