@@ -1,9 +1,28 @@
 import React from "react";
-import { axiosInstance } from "../common/axios";
-import { Patient } from "@/models/Patient";
+import { axiosInstance } from "../../common/axios";
+import { Doctor } from "@/models/Doctor";
+import Image from 'next/image';
+import { NextRouter, useRouter } from "next/router";
 
 
-export default function patients({ data }: { data: Patient[] }) {
+export default function Doctors({ data }: { data: Doctor[] }) {
+
+
+
+    const router: NextRouter = useRouter();
+
+    const handleRowClick = (id: string | number) => {
+        console.log(id)
+        router.push(`/admin/doctor/${id}`)
+    }
+
+
+
+    if (!data || data.length === 0) {
+        return <div>No Data found...</div>
+    }
+
+
     return (
         <>
 
@@ -25,26 +44,31 @@ export default function patients({ data }: { data: Patient[] }) {
                     <tbody>
 
                         {
-                            data.map((patient, i) => {
+                            data.map((doctor, i) => {
                                 return (
-                                    <tr className="bg-white dark:bg-gray-800" key={i}>
+                                    <tr className="bg-white dark:bg-gray-800" key={i} onClick={() => handleRowClick(doctor.id)}>
                                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {patient.id.slice(0, 4)}...
+                                            {doctor.id}
                                         </th>
                                         <td className="px-6 py-4">
-                                            {patient.name}
+                                            {doctor.name}
                                         </td>
                                         <td className="px-6 py-4">
-                                            {patient.email}
+                                            {doctor.specialization}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            {doctor.email}
                                         </td>
                                         <td className="px-6 py-4">
                                             ********
                                         </td>
                                         <td className="px-6 py-4">
-                                            {patient.phone}
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            {patient.address}
+                                            <Image
+                                                src={doctor?.filename}
+                                                alt="Doctor Image"
+                                                width={70}
+                                                height={70}
+                                            />
                                         </td>
                                     </tr>
                                 )
@@ -68,7 +92,7 @@ export default function patients({ data }: { data: Patient[] }) {
 }
 
 export async function getServerSideProps({ }) {
-    const response = await axiosInstance.get<Patient[]>("/patients/finduser")
+    const response = await axiosInstance.get<Doctor[]>("/doctor/finddoctor")
     const data = response.data
     return { props: { data } }
 }

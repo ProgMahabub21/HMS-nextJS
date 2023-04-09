@@ -1,18 +1,18 @@
 import React from "react";
-import { axiosInstance } from "../common/axios";
-import { Doctor } from "@/models/Doctor";
-import Image from 'next/image';
-
-
-export default function doctors({ data }: { data: Doctor[] }) {
+import { axiosInstance } from "../../common/axios";
+import { Patient } from "@/models/Patient";
+import { NextRouter, useRouter } from "next/router";
 
 
 
-    if (!data || data.length === 0) {
-        return <div>No Data found...</div>
+
+export default function Patients({ data }: { data: Patient[] }) {
+    const router: NextRouter = useRouter();
+
+    const handleRowClick = (id: string) => {
+        console.log(id)
+        router.push(`/admin/patient/${id}`)
     }
-
-
     return (
         <>
 
@@ -34,34 +34,26 @@ export default function doctors({ data }: { data: Doctor[] }) {
                     <tbody>
 
                         {
-                            data.map((doctor, i) => {
+                            data.map((patient, i) => {
                                 return (
-                                    <tr className="bg-white dark:bg-gray-800" key={i}>
+                                    <tr className="bg-white dark:bg-gray-800" key={i} onClick={() => handleRowClick(patient.id)}>
                                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {doctor.id}
+                                            {patient.id.slice(0, 4)}...
                                         </th>
                                         <td className="px-6 py-4">
-                                            {doctor.name}
+                                            {patient.name}
                                         </td>
                                         <td className="px-6 py-4">
-                                            {doctor.specialization}
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            {doctor.email}
+                                            {patient.email}
                                         </td>
                                         <td className="px-6 py-4">
                                             ********
                                         </td>
                                         <td className="px-6 py-4">
-                                            {/* {doctor.filename} */}
-
-                                            {/* //image */}
-                                            <Image
-                                                src={doctor?.filename}
-                                                alt="Doctor Image"
-                                                width={70}
-                                                height={70}
-                                            />
+                                            {patient.phone}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            {patient.address}
                                         </td>
                                     </tr>
                                 )
@@ -69,13 +61,6 @@ export default function doctors({ data }: { data: Doctor[] }) {
                         }
 
                     </tbody>
-                    <tfoot>
-                        <tr className="font-semibold text-gray-900 dark:text-white">
-                            <th scope="row" className="px-6 py-3 text-base">Total</th>
-                            <td className="px-6 py-3">3</td>
-                            <td className="px-6 py-3">21,000</td>
-                        </tr>
-                    </tfoot>
                 </table>
             </div>
 
@@ -85,7 +70,7 @@ export default function doctors({ data }: { data: Doctor[] }) {
 }
 
 export async function getServerSideProps({ }) {
-    const response = await axiosInstance.get<Doctor[]>("/doctor/finddoctor")
+    const response = await axiosInstance.get<Patient[]>("/patients/finduser")
     const data = response.data
     return { props: { data } }
 }

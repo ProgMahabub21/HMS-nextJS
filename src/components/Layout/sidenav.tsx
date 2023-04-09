@@ -40,11 +40,11 @@ const Sidenav = ({ children }: Props) => {
                     children: [
                         {
                             name: "Patient List",
-                            link: "/admin/patients",
+                            link: "/admin/patient",
                         },
                         {
                             name: "Add Patient",
-                            link: "/admin/patient-add",
+                            link: "/admin/patient/patient-add",
                         },
                     ],
                 }, {
@@ -54,11 +54,11 @@ const Sidenav = ({ children }: Props) => {
                     children: [
                         {
                             name: "Doctor List",
-                            link: "/admin/doctors",
+                            link: "/admin/doctor",
                         },
                         {
                             name: "Add Doctor",
-                            link: "/admin/doctor-add",
+                            link: "/admin/doctor/doctor-add",
                         },
                     ],
                 },
