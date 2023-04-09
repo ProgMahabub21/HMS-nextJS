@@ -3,7 +3,6 @@ import React from "react";
 import { FaFlipboard } from "react-icons/fa";
 import NavItem from "./navitem";
 
-
 interface Props {
     children: React.ReactNode;
 }
@@ -33,7 +32,6 @@ const Sidenav = ({ children }: Props) => {
                     name: "Dashboard",
                     link: "/admin/dashboard",
                     icon: <FaFlipboard />,
-
                 },
                 {
                     name: "Patients",
@@ -48,7 +46,7 @@ const Sidenav = ({ children }: Props) => {
                             name: "Add Patient",
                             link: "/Admin/patients/add-patient",
                         },
-                    ]
+                    ],
                 },
                 {
                     name: "Products",
@@ -67,10 +65,6 @@ const Sidenav = ({ children }: Props) => {
         default:
             break;
     }
-
-
-
-
 
     return (
         <>
@@ -103,21 +97,18 @@ const Sidenav = ({ children }: Props) => {
             >
                 <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
                     <ul className="space-y-2 font-medium">
-
                         {navBarItems.map((nav, i) => (
-                            <li key={i}>
-                                <NavItem title={nav.name} icon={nav.icon} navItems={nav.children} />
-                            </li>
-
-
+                            <NavItem
+                                key={i}
+                                title={nav.name}
+                                icon={nav.icon}
+                                navItems={nav.children}
+                            />
                         ))}
                     </ul>
 
                     <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
-
                         <NavItem title="test 2" icon={<FaFlipboard />} link="#" />
-
-
 
                         <li>
                             <a
@@ -141,7 +132,6 @@ const Sidenav = ({ children }: Props) => {
                                 <span className="ml-3">Documentation</span>
                             </a>
                         </li>
-
 
                         <li>
                             <a
