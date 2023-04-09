@@ -38,7 +38,7 @@ export default function doctors({ data }: { data: Doctor[] }) {
                                 return (
                                     <tr className="bg-white dark:bg-gray-800" key={i}>
                                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {doctor.id}...
+                                            {doctor.id}
                                         </th>
                                         <td className="px-6 py-4">
                                             {doctor.name}
@@ -59,8 +59,8 @@ export default function doctors({ data }: { data: Doctor[] }) {
                                             <Image
                                                 src={doctor?.filename}
                                                 alt="Doctor Image"
-                                                width={100}
-                                                height={100}
+                                                width={70}
+                                                height={70}
                                             />
                                         </td>
                                     </tr>
