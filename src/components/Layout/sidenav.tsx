@@ -24,6 +24,14 @@ const Sidenav = ({ children }: Props) => {
         }[];
     }[] = [];
 
+    console.log("length ", router.pathname.split("/").length);
+
+    // if (router.pathname.split("/").length == 2) {
+    //     return (<div><h1>H1</h1></div>
+    //     )
+    // }
+
+
     console.log("currentPageName ", currentPageName);
 
     switch (currentPageName.toLocaleLowerCase()) {
