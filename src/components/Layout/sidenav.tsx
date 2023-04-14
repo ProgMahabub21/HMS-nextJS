@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import React from "react";
-import { FaFlipboard } from "react-icons/fa";
+import { FaFlipboard, FaBed } from "react-icons/fa";
+import { TbNote } from 'react-icons/tb'
 import NavItem from "./navitem";
-
 
 interface Props {
     children: React.ReactNode;
@@ -24,6 +24,14 @@ const Sidenav = ({ children }: Props) => {
         }[];
     }[] = [];
 
+    console.log("length ", router.pathname.split("/").length);
+
+    // if (router.pathname.split("/").length == 2) {
+    //     return (<div><h1>H1</h1></div>
+    //     )
+    // }
+
+
     console.log("currentPageName ", currentPageName);
 
     switch (currentPageName.toLocaleLowerCase()) {
@@ -33,33 +41,51 @@ const Sidenav = ({ children }: Props) => {
                     name: "Dashboard",
                     link: "/admin/dashboard",
                     icon: <FaFlipboard />,
-
                 },
                 {
                     name: "Patients",
 
-                    icon: <FaFlipboard />,
+                    icon: <FaBed />,
                     children: [
                         {
                             name: "Patient List",
-                            link: "/admin/patients",
+                            link: "/admin/patient",
                         },
                         {
                             name: "Add Patient",
-                            link: "/Admin/patients/add-patient",
+                            link: "/admin/patient/patient-add",
                         },
-                    ]
+                    ],
+                }, {
+                    name: "Doctor",
+
+                    icon: <FaBed />,
+                    children: [
+                        {
+                            name: "Doctor List",
+                            link: "/admin/doctor",
+                        },
+                        {
+                            name: "Add Doctor",
+                            link: "/admin/doctor/doctor-add",
+                        },
+                    ],
+                }, {
+                    name: "Apponments",
+
+                    icon: <TbNote />,
+                    children: [
+                        {
+                            name: "Apponments List",
+                            link: "/admin/apponment",
+                        },
+                    ],
                 },
                 {
                     name: "Products",
                     link: "/Admin/products",
                     icon: <FaFlipboard />,
-                },
-                {
-                    name: "Update Admin",
-                    link: "/Admin/update-admin",
-                    icon: <FaFlipboard />,
-                },
+                }
             ];
 
             break;
@@ -99,21 +125,19 @@ const Sidenav = ({ children }: Props) => {
             >
                 <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
                     <ul className="space-y-2 font-medium">
-
                         {navBarItems.map((nav, i) => (
-                            <li key={i}>
-                                <NavItem title={nav.name} icon={nav.icon} navItems={nav.children} />
-                            </li>
-
-
+                            <NavItem
+                                key={i}
+                                title={nav.name}
+                                link={nav.link}
+                                icon={nav.icon}
+                                navItems={nav.children}
+                            />
                         ))}
                     </ul>
 
                     <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
-
                         <NavItem title="test 2" icon={<FaFlipboard />} link="#" />
-
-
 
                         <li>
                             <a
@@ -138,7 +162,6 @@ const Sidenav = ({ children }: Props) => {
                             </a>
                         </li>
 
-
                         <li>
                             <a
                                 href="#"
@@ -158,7 +181,7 @@ const Sidenav = ({ children }: Props) => {
                         </li>
                         <li>
                             <a
-                                href="#"
+                                href="/admin"
                                 className="flex items-center p-2 text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
                             >
                                 <svg

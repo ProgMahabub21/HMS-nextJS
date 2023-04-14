@@ -16,8 +16,13 @@ const NavItem = ({ navItems, icon, title, link }: Props) => {
     const [open, setOpen] = React.useState(false)
     const router = useRouter()
     const handleOpen = () => {
+
+        console.log("in handleOpen ", link);
+
+        console.log(!navItems?.length);
+
         if (!navItems?.length) {
-            link && router.push(link)
+            router.push(link!)
         }
         else setOpen(!open)
     }
@@ -35,15 +40,6 @@ const NavItem = ({ navItems, icon, title, link }: Props) => {
             })
         }
     </ul>
-
-    // if (!children) {
-    //     if (!link) {
-    //         throw new Error('link prop is required if children is not present')
-    //     }
-    // }
-
-
-
 
     return (
         <li>
