@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { SubmitHandler } from 'react-hook-form';
@@ -6,6 +6,7 @@ import lgimage from '/public/image/login-p.jpg'
 import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
 import { axiosInstance } from '../common/axios';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 //import { redirect } from 'next/router';
 
 type LoginFormData = {
@@ -23,7 +24,7 @@ const LoginPage = () => {
     //json stringify
     const email = data.email;
     const password = data.password;
-    console.log (email , password)
+    console.log(email, password)
 
     // call api and fetch data from " http://localhost:3005/patients/finduser" and match email password
 
@@ -40,7 +41,8 @@ const LoginPage = () => {
 
     } catch (error: any) {
       console.log(error);
-      setErrors(error.response.data.message);
+      if (error.response.status == 500)
+        setErrors(error.response.status + " login Credential invalid");
 
     }
 
@@ -60,13 +62,13 @@ const LoginPage = () => {
           className='object-cover h-full'
         />
       </div>
-      <div className="flex items-center justify-center bg-gray-100 md:w-1/2">
-     { errors && <div className="relative px-4 py-3 text-red-700 bg-red-100 border border-red-400 rounded" role="alert">
-                    <strong className="font-bold">Error!</strong>
-                    <span className="block sm:inline">{errors}</span>
-                </div> }
-        <form
-          className="max-w-sm p-8 bg-white rounded-lg shadow-md"
+      <div className="flex flex-col items-center justify-center space-y-4 bg-gray-100 md:w-1/2">
+        {errors && <div className="p-8 px-4 py-3 text-red-700 bg-red-100 border border-red-400 rounded item-center" role="alert">
+          <strong className="font-bold">Error!</strong>
+          <span className="block sm:inline">{errors}</span>
+        </div>}
+        <div><form
+          className="max-w-sm p-8 bg-white rounded-lg shadow-md "
           onSubmit={handleSubmit(onSubmit)}
         >
           <h2 className="mb-4 text-2xl font-bold">Log in to your account</h2>
@@ -98,7 +100,11 @@ const LoginPage = () => {
           >
             Log in
           </button>
-        </form>
+          <p className="mt-5 text-sm font-light text-gray-500 dark:text-gray-400">
+                      Don’t have an account yet? <label onClick={() => router.push("/Patients/registration")} className="font-medium text-blue-400 text-primary-600 hover:underline dark:text-primary-500">Sign up</label>
+          </p>
+        </form></div>
+
       </div>
     </div>
   );
