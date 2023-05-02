@@ -25,6 +25,7 @@ const LoginPage = () => {
     const email = data.email;
     const password = data.password;
     console.log(email, password)
+    console.log('before Session Data: '+sessionStorage);
 
     // call api and fetch data from " http://localhost:3005/patients/finduser" and match email password
 
@@ -36,6 +37,14 @@ const LoginPage = () => {
         email,
         password
       });
+
+     
+      
+      sessionStorage.setItem('userid', response.data.userid);
+      sessionStorage.setItem('username', response.data.username);
+      sessionStorage.setItem('usermail', response.data.email);
+      const session = sessionStorage.getItem('userid');
+      console.log('After Session data: '+ session);
 
       router.push('/Patients/homepage');
 
