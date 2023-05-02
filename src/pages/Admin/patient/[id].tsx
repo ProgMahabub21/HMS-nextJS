@@ -6,9 +6,19 @@ import { Patient } from "@/models/Patient";
 export default function SinlePatient({ data }: { data: Patient }) {
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const onSubmit: SubmitHandler<any> = data => console.log(data);
+    const onSubmit: SubmitHandler<any> = data => {
+        // return console.log(data);
+        console.log(data);
+        updatePatient(data);
+    };
 
     console.log(errors);
+
+
+    function updatePatient(updateData: any) {
+        // console.log(data);
+        axiosInstance.patch(`/patients/updatepatients/${data.id}`, updateData)
+    }
 
 
     return (
@@ -23,14 +33,14 @@ export default function SinlePatient({ data }: { data: Patient }) {
                             <div>
                                 <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
                                 <span className="text-red-500 text-xs">{errors.Name && "Name is required"}</span>
-                                <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" defaultValue={data.name} {...register("Name", {
+                                <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" defaultValue={data.name} {...register("name", {
                                     required: true,
                                 })} />
                             </div>
                             <div>
                                 <label htmlFor="last_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                                 <span className="text-red-500 text-xs">{errors.Email && "Email is required"}</span>
-                                <input type="text" id="last_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" defaultValue={data.email} {...register("Email", {
+                                <input type="text" id="last_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" defaultValue={data.email} {...register("email", {
                                     required: true,
 
                                 })} />
