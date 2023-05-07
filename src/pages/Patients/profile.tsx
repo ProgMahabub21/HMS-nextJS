@@ -37,16 +37,25 @@ export default  function UserProfile() {
     const handleUpdateEvent = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = e.target;
         setUser((prevState) => ({ ...prevState, [id]: value }));
+        console.log(user.name , user.email, user.phone, user.address);
       };
 
-    const onSubmit = async () => {
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        // save those data in local variable
+        const name = user.name;
+        const email = user.email;
+        const phone = user.phone;
+        const address = user.address;
         try {
             const response = await axiosInstance.patch(`/patients/updatepatients/${user.id}`, {
-                name: user.name,
-                email: user.email,
-                phone: user.phone,
-                address: user.address
+                name,
+                email,
+                phone,
+                address
             });
+            
+            alert("Account updated successfully.");
             console.log(response);
             router.push("/Patients/homepage");
         } catch (error) {
@@ -76,12 +85,12 @@ export default  function UserProfile() {
 
                                         <div className="w-full md:w-1/2 md:pr-2">
                                             <label htmlFor="user_id" className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Account ID</label>
-                                            <input type="text" id="user_id" defaultValue={user?.id} disabled
+                                            <input type="text" id="id" defaultValue={user?.id} disabled
                                                 className="w-full px-3 py-2 mb-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" />
                                         </div>
                                         <div className="w-full md:w-1/2 md:pr-2">
                                             <label htmlFor="full_name" className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Full Name</label>
-                                            <input type="text" id="full_name" defaultValue={user?.name} onChange={handleUpdateEvent}
+                                            <input type="text" id="name" defaultValue={user?.name} onChange={handleUpdateEvent}
                                                 className="w-full px-3 py-2 mb-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" />
 
                                         </div>
@@ -94,7 +103,7 @@ export default  function UserProfile() {
                                         </div>
                                         <div className="w-full md:w-1/2 md:pr-2">
                                             <label htmlFor="phone_number" className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Phone Number</label>
-                                            <input type="text" id="phone_number" defaultValue={user?.phone}  onChange={handleUpdateEvent}
+                                            <input type="text" id="phone" defaultValue={user?.phone}  onChange={handleUpdateEvent}
                                                 className="w-full px-3 py-2 mb-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" />
 
                                         </div>
