@@ -20,17 +20,12 @@ export default function LoginPage() {
                 password,
             });
 
-            console.log(response.data);
-
-
-
             sessionStorage.setItem("admin", JSON.stringify(response.data));
-
 
             router.push("/admin/dashboard");
         } catch (error: any) {
             console.log(error);
-            setErrors(error.response?.data?.message ?? "Something went wrong");
+            setErrors(" " + error.response?.data?.message ?? "Something went wrong");
         }
     };
     return (
@@ -62,7 +57,7 @@ export default function LoginPage() {
                             id="email"
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="john.doe@company.com"
-                            required
+
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
@@ -79,7 +74,7 @@ export default function LoginPage() {
                             id="password"
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="•••••••••"
-                            required
+
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
