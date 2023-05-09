@@ -4,6 +4,7 @@ import { FaFlipboard, FaBed } from "react-icons/fa";
 import { TbNote } from 'react-icons/tb'
 import NavItem from "./navitem";
 import Link from "next/link";
+import { AiOutlineUser } from "react-icons/ai";
 
 interface Props {
     children: React.ReactNode;
@@ -25,19 +26,34 @@ const Sidenav = ({ children }: Props) => {
         }[];
     }[] = [];
 
-    console.log("length ", router.pathname.split("/").length);
+    // console.log("length ", router.pathname.split("/").length);
 
-    // if (router.pathname.split("/").length == 2) {
-    //     return (<div><h1>H1</h1></div>
-    //     )
-    // }
+    // console.log("currentPageName ", currentPageName);
 
 
-    console.log("currentPageName ", currentPageName);
+
+    // console.log("admin ", sessionStorage.getItem("admin"));
+
+
+
+
+    const adminUser = JSON.parse(sessionStorage.getItem("admin") || '{}')?.admin;
+
+    console.log("adminUser ", adminUser);
+
+
+
+
 
     switch (currentPageName.toLocaleLowerCase()) {
         case "admin":
             navBarItems = [
+
+                {
+                    name: adminUser.firstName + " " + adminUser.lastName,
+                    link: "#",
+                    icon: <AiOutlineUser />,
+                },
                 {
                     name: "Dashboard",
                     link: "/admin/dashboard",

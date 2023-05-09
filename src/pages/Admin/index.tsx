@@ -20,6 +20,13 @@ export default function LoginPage() {
                 password,
             });
 
+            console.log(response.data);
+
+
+
+            sessionStorage.setItem("admin", JSON.stringify(response.data));
+
+
             router.push("/admin/dashboard");
         } catch (error: any) {
             console.log(error);
