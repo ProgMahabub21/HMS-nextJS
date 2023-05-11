@@ -5,6 +5,7 @@ import { TbNote } from 'react-icons/tb'
 import NavItem from "./navitem";
 import Link from "next/link";
 import { AiOutlineUser } from "react-icons/ai";
+import { MdAdminPanelSettings } from "react-icons/md";
 
 interface Props {
     children: React.ReactNode;
@@ -37,9 +38,13 @@ const Sidenav = ({ children }: Props) => {
 
 
 
-    const adminUser = JSON.parse(sessionStorage.getItem("admin") || '{}')?.admin;
+    try {
+        var adminUser = JSON.parse(sessionStorage.getItem("admin") || '{}')?.admin;
 
-    console.log("adminUser ", adminUser);
+        console.log("adminUser ", adminUser);
+    } catch (error) {
+
+    }
 
 
 
@@ -50,7 +55,7 @@ const Sidenav = ({ children }: Props) => {
             navBarItems = [
 
                 {
-                    name: adminUser.firstName + " " + adminUser.lastName,
+                    name: adminUser?.firstName + " " + adminUser?.lastName,
                     link: "#",
                     icon: <AiOutlineUser />,
                 },
@@ -58,6 +63,21 @@ const Sidenav = ({ children }: Props) => {
                     name: "Dashboard",
                     link: "/admin/dashboard",
                     icon: <FaFlipboard />,
+                },
+                {
+                    name: "Admin",
+
+                    icon: <MdAdminPanelSettings />,
+                    children: [
+                        {
+                            name: "Admin List",
+                            link: "/admin/admin",
+                        },
+                        {
+                            name: "Add Admin",
+                            link: "/admin/admin/admin-add",
+                        },
+                    ],
                 },
                 {
                     name: "Patients",
