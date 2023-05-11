@@ -6,6 +6,7 @@ import Image from 'next/image';
 import docimg from "/public/image/doctor/profile-picture-1.png";
 import { debounce } from "lodash";
 import { AiFillStar } from "react-icons/ai"
+import { useRouter } from "next/router";
 
 interface DoctorLists {
     id: number;
@@ -38,7 +39,7 @@ export default function ViewAppointment() {
 
     },);
 
-
+    const router = useRouter();
 
     useLayoutEffect(() => {
         if (!buttonRef.current) {
@@ -88,6 +89,12 @@ export default function ViewAppointment() {
     // Change page
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
+    const handlerowclick = (id: number) => {
+        
+        console.log(id)
+        router.push(`/Patients/appointment/doctor-profile/${id}`)
+
+    }
 
     return (
         <>
@@ -159,7 +166,7 @@ export default function ViewAppointment() {
                                                                         <Image className="w-10 h-10 rounded-full" src={docimg} alt="Jese Leos" />
                                                                     </a>
                                                                     <div>
-                                                                        <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-1.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Take Appointment</button>
+                                                                        <button type="button" onClick={() => {handlerowclick(Lists.id)}} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-1.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Take Appointment</button>
                                                                     </div>
                                                                 </div>
                                                                 <p className="text-base font-semibold leading-none text-gray-900 dark:text-white">

@@ -18,6 +18,10 @@ const LoginPage = () => {
   const { register, handleSubmit } = useForm<LoginFormData>();
   const [errors, setErrors] = useState('');
 
+  // defined sessionStorage
+
+  
+
   const onSubmit = async (data: LoginFormData) => {
 
 
@@ -25,7 +29,7 @@ const LoginPage = () => {
     const email = data.email;
     const password = data.password;
     console.log(email, password)
-    console.log('before Session Data: '+sessionStorage);
+    console.log('before Session Data: '+sessionStorage? sessionStorage.getItem("uesrid") : "no session data");
 
     // call api and fetch data from " http://localhost:3005/patients/finduser" and match email password
 

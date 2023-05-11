@@ -26,8 +26,10 @@ export default function ViewAppointment() {
     const [medPerPage] = useState(15); // Number of Listss to display per page
 
     useEffect(() => {
+
+        const data = sessionStorage.getItem("userid");
         // Fetch diagnosis Listss data from API and set to state
-        axiosInstance.get('patients/appointmenthistory')
+        axiosInstance.get(`/patients/appointmenthistory/${data}`)
             .then(response => {
                 
                 setAppointmentLists(response.data);
