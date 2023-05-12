@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { axiosInstance } from "../common/axios";
+import { axiosInstance } from "../../common/axios";
 import { useRouter } from "next/router";
 
 export default function LoginPage() {

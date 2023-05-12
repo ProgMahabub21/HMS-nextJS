@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { SubmitHandler } from 'react-hook-form';
 import lgimage from '/public/image/login-p.jpg'
 import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
-import { axiosInstance } from '../common/axios';
+import { axiosInstance } from '../../common/axios';
 import { useRouter } from 'next/router';
 //import { redirect } from 'next/router';
 
@@ -23,7 +23,7 @@ const LoginPage = () => {
     //json stringify
     const email = data.email;
     const password = data.password;
-    console.log (email , password)
+    console.log(email, password)
 
     // call api and fetch data from " http://localhost:3005/patients/finduser" and match email password
 
@@ -61,10 +61,10 @@ const LoginPage = () => {
         />
       </div>
       <div className="flex items-center justify-center bg-gray-100 md:w-1/2">
-     { errors && <div className="relative px-4 py-3 text-red-700 bg-red-100 border border-red-400 rounded" role="alert">
-                    <strong className="font-bold">Error!</strong>
-                    <span className="block sm:inline">{errors}</span>
-                </div> }
+        {errors && <div className="relative px-4 py-3 text-red-700 bg-red-100 border border-red-400 rounded" role="alert">
+          <strong className="font-bold">Error!</strong>
+          <span className="block sm:inline">{errors}</span>
+        </div>}
         <form
           className="max-w-sm p-8 bg-white rounded-lg shadow-md"
           onSubmit={handleSubmit(onSubmit)}

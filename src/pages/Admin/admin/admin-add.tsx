@@ -1,4 +1,4 @@
-import { axiosInstance } from "@/pages/common/axios";
+import { axiosInstance } from "@/common/axios";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 export default function AddAdminPage() {

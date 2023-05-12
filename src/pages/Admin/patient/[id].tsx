@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { axiosInstance } from "@/pages/common/axios";
+import { axiosInstance } from "@/common/axios";
 import { Patient } from "@/models/Patient";
 import router from "next/router";
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "./Components/sidebar";
-import { axiosInstance } from "../common/axios";
+import { axiosInstance } from "../../common/axios";
 import { UUID } from "crypto";
 
 interface Doctor {
@@ -29,7 +29,7 @@ export default function ViewAppointment() {
         // Fetch diagnosis Listss data from API and set to state
         axiosInstance.get('patients/appointmenthistory')
             .then(response => {
-                
+
                 setAppointmentLists(response.data);
                 setfilteredLists(response.data);
                 console.log(response.data)
@@ -97,7 +97,7 @@ export default function ViewAppointment() {
                                         {currentLists.map(Lists => (
                                             <tr key={Lists.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <td className="px-6 py-4">{Lists.id}</td>
-                                                <td className="px-6 py-4">{ Lists.doctor.name }</td>
+                                                <td className="px-6 py-4">{Lists.doctor.name}</td>
                                                 <td className="px-6 py-4">{Lists.appDateTime}</td>
                                                 <td className="px-6 py-4">{Lists.status}</td>
                                             </tr>

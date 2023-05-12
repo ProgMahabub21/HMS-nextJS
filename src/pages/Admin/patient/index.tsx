@@ -1,5 +1,5 @@
 import React from "react";
-import { axiosInstance } from "../../common/axios";
+import { axiosInstance } from "../../../common/axios";
 import { Patient } from "@/models/Patient";
 import { NextRouter, useRouter } from "next/router";
 import SearchBar from "@/components/searchbar";
