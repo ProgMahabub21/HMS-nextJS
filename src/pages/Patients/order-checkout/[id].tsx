@@ -37,7 +37,7 @@ export default function OrderCheckoutPage({ cartItems }: { cartItems: MedicineLi
         const session = await stripe.checkout.sessions.create({
             success_url: `http://localhost:3005/Patients/payment-success?cartItems=${JSON.stringify(
               cartItems
-            )}&userId=${userid}&amount=${total}&sessionId=$\{CHECKOUT_SESSION_ID}`, // Update with your actual success URL and user ID
+            )}&userId=${userid}&amount=${total}&sessionId=\{CHECKOUT_SESSION_ID}`, // Update with your actual success URL and user ID
             line_items: lineItems,
             mode: 'payment',
             client_reference_id: userid,

@@ -67,7 +67,7 @@ export default function ViewAppointment() {
                 setfilteredLists(response.data);
             })
             .catch(error => {
-                console.error('Error fetching appointment Lists:', error);
+                console.error('Error fetching doctor Lists:', error);
             });
     }, []);
 

@@ -42,7 +42,7 @@ export default function SearchMedicine() {
             .catch(error => {
                 console.error('Error fetching diagnosis Listss:', error);
             });
-    }, []);
+    }, [router]);
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         const term = event.target.value;
