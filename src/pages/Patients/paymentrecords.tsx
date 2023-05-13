@@ -16,6 +16,9 @@ export default function PaymentRecords() {
     const [data, setData] = useState<Payment[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [paymentsPerPage] = useState(10);
+    const [selectedTransactionId, setSelectedTransactionId] = useState("");
+    const [lineItems, setLineItems] = useState([]);
+    const [showPopover, setShowPopover] = useState(false);
 
     // Pagination logic
     const indexOfLastPayment = currentPage * paymentsPerPage;
@@ -58,6 +61,36 @@ export default function PaymentRecords() {
         fetchData();
     }, []);
 
+    const handleViewDetails = async (transactionId: string) => {
+        setSelectedTransactionId(transactionId);
+        console.log(selectedTransactionId);
+        setShowPopover(true);
+        // Make API call to retrieve line items for the transaction ID
+        // Replace the API endpoint below with the actual endpoint
+        const Stripe = require('stripe');
+        const stripe = Stripe('sk_test_51N6KAlDVaqngytN0P2fbU2rv9HpZx55S0zfa9a88pzGmixwg6MZs0ay4gp12x6Mga6u2NxDtmRI2AeaMADikB5vM00u9Cqk2OQ');
+        try {
+            const rlineItems = await stripe.checkout.sessions.listLineItems(transactionId, { limit: 5 });
+            console
+            setLineItems(rlineItems.data);
+            console.log(lineItems);
+            setShowPopover(true);
+        } catch (error) {
+            // Handle error case
+            console.log("Error fetching line items from stripe:", error);
+        }
+    };
+
+
+    const handleClosePopover = () => {
+        setShowPopover(false);
+        setLineItems([]);
+    };
+
+    const formatAmount = (amount: any) => {
+        return (amount / 100).toFixed(2); // Assuming the amount is in cents, dividing by 100 to get the amount in dollars and fixing it to 2 decimal places
+    };
+
     return (
         <>
             <div className="grid grid-cols-12">
@@ -87,10 +120,73 @@ export default function PaymentRecords() {
                                             <td className="px-6 py-4">{item.transactionid}</td>
                                             <td className="px-6 py-4">{item.amount}</td>
                                             <td className="px-6 py-4">{item.date}</td>
+                                            <td className="px-6 py-4">
+                                                <button
+                                                    className="text-blue-600 hover:underline"
+                                                    onClick={() => handleViewDetails(item.transactionid)}
+                                                >
+                                                    View Details
+                                                </button>
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
+                            {showPopover && (
+                                <div className="fixed inset-0 flex items-center justify-center ">
+                                    <div className="absolute inset-0 bg-gray-900 opacity-50"></div>
+                                    <div className="z-10 w-5/12 bg-white rounded-lg shadow-lg">
+                                        <div className="flex items-center justify-between px-4 py-3 border-b">
+                                            <h3 className="text-xl font-bold text-gray-900">
+                                                Order Items Details
+                                            </h3>
+                                            <button
+                                                className="text-gray-600 hover:text-gray-900"
+                                                onClick={handleClosePopover}
+                                            >
+                                                <svg
+                                                    className="w-6 h-6"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke="currentColor"
+                                                >
+                                                    <path
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        strokeWidth={2}
+                                                        d="M6 18L18 6M6 6l12 12"
+                                                    />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <div className="p-4">
+                                            <ul className="space-y-2">
+                                                {lineItems.map((item: any, index: number) => (
+                                                    <li key={item.id}>
+                                                        <p className="flex items-center space-x-2 font-medium">
+                                                            <span className="font-bold">{index + 1}.</span>
+                                                            <span className="font-bold">Medicine Name: </span>
+                                                            <span className="w-24 italic">{item.description}</span> -
+                                                            <span className="font-bold"> Quantity:  </span>
+                                                            <span className="w-8"> ({item.quantity}) </span>
+                                                            <span className="w-16 text-gray-500 whitespace-nowrap">
+                                                                 Amount: <span className="font-semibold">{formatAmount(item.amount_total)}</span> ({item.currency})
+                                                                
+                                                            </span>
+                                                        </p>
+
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+
+
+
+
                             <div className="flex">
                                 <div>
                                     <p className="justify-start h-5 px-4 text-gray-500">Showing {indexOfFirstPayment + 1}-{Math.min(indexOfLastPayment, data.length)} of {data.length} results</p>
