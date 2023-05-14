@@ -3,7 +3,6 @@ import React from "react";
 import Image from "next/image";
 import logo from "/public/image/system-logo.png"
 import Link from "next/link";
-import Sidebar from "./Components/sidebar";
 
 export default function HomePage() {
 
@@ -12,7 +11,7 @@ export default function HomePage() {
         <>
             <div className="grid grid-cols-12 ">
 
-                <Sidebar />
+               
                
 
                 <div className="col-span-9 text-center bg-white overscroll-contain text-cyan-400">
