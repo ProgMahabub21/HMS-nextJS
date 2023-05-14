@@ -6,6 +6,7 @@ import { Doctor } from "@/models/Doctor";
 import Image from "next/image";
 import Sidebar from "../../Components/sidebar";
 import docimg from "/public/image/doctor/profile-picture-1.png";
+import SessionCheck from "../../Components/sessionCheck";
 
 export default function SinleDoctor({ data }: { data: Doctor }) {
     const router: NextRouter = useRouter();
@@ -33,9 +34,10 @@ export default function SinleDoctor({ data }: { data: Doctor }) {
     return (
 
         <>
+            <SessionCheck/>
             <div className="grid grid-cols-12 ">
 
-                <Sidebar />
+             
 
                 <div className="col-span-9">
                     <div className="h-48 p-10">
@@ -60,7 +62,7 @@ export default function SinleDoctor({ data }: { data: Doctor }) {
 
                                     </div>
 
-                                    <p className="my-4 mt-4 text-base text-gray-700">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, Nonea! Maiores et perferendis eaque, exercitationem praesentium nihil.</p>
+                                    <p className="my-4 mt-4 text-base text-gray-700">Qualification: MBBS, PGT (USG) , MD (medicine)   Experience : 20yrs</p>
                                     <div className="mb-2 font-bold text-gray-900 text-">Specialization: {data.specialization}</div>
                                 </div>
                                 <div className="flex items-center">

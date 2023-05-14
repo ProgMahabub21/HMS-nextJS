@@ -3,6 +3,8 @@ import Sidebar from "./Components/sidebar";
 import Image from 'next/image';
 import docimg from "/public/image/doctor/profile-picture-1.png";
 import { debounce } from "lodash";
+import { axiosInstance } from "@/common/axios";
+import SessionCheck from "./Components/sessionCheck";
 
 export default function MakeAppointment() {
     const [showProfile, setShowProfile] = useState(false);
@@ -33,11 +35,11 @@ export default function MakeAppointment() {
       }, [showProfile]);
     return (
         <>
-
+            <SessionCheck/>
             <div className="grid grid-cols-12 ">
 
 
-                <Sidebar />
+                
 
 
                 <div className="col-span-9">
@@ -135,3 +137,4 @@ export default function MakeAppointment() {
         </>
     )
 }
+

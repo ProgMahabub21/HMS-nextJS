@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { axiosInstance } from "@/common/axios";
 import { useRouter } from 'next/router';
 import Sidebar from "./Components/sidebar";
+import SessionCheck from "./Components/sessionCheck";
+
 export default function DeleteAccount() {
 
 
@@ -25,7 +27,7 @@ export default function DeleteAccount() {
                 alert("Account deleted successfully.");
             }
 
-            router.push("/Patients/login");
+            router.push("/login");
         }catch (error: any) {
             console.log(error.data.message);
         }
@@ -35,9 +37,9 @@ export default function DeleteAccount() {
 
     return (
         <>
+            <SessionCheck/>
             <div className="grid grid-cols-12 ">
 
-                <Sidebar />
                 <div className="flex flex-col items-center justify-center col-span-9 space-y-4 md:w-1/2">
                     <div className="container flex flex-col min-h-screen mx-auto">
                         <div className="p-8 px-4 py-3 text-red-700 bg-red-100 border border-red-400 rounded item-center" role="alert">
@@ -61,3 +63,4 @@ export default function DeleteAccount() {
         </>
     )
 }
+

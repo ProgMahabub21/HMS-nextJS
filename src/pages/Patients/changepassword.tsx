@@ -3,8 +3,11 @@ import Sidebar from "./Components/sidebar";
 import { useRouter } from "next/router";
 import { axiosInstance } from "@/common/axios";
 import { Session } from "inspector";
+import SessionCheck from "./Components/sessionCheck";
 
 export default function ChangePassword() {
+
+    
 
     const router = useRouter();
 
@@ -18,7 +21,7 @@ export default function ChangePassword() {
     useEffect(() => {
         async function fetchData() {
             const session = await sessionStorage.getItem("userid");
-            if (!session) {
+            if (session === null) {
                 return {
                     redirect: {
                         destination: "/unauthorized",
@@ -27,9 +30,11 @@ export default function ChangePassword() {
                 };
             }
 
-            // Fetch user profile data
+           
             const userData = await axiosInstance.get(`/patients/finduserid/${session}`
             );
+            // setUserdata(data.data.password);
+            // setUserid(data.data.id);
             setUserdata(userData.data.password);
             setUserid(userData.data.id);
             
@@ -37,10 +42,10 @@ export default function ChangePassword() {
         fetchData();
     }, []);
 
-    if(userid == null)
-    {
-        return <div>Loading...</div>;
-    }
+    // if(userid == null)
+    // {
+    //     return <div>Loading...</div>;
+    // }
 
    
     const handleUpdateEvent = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,7 +80,7 @@ export default function ChangePassword() {
             
             alert("Password Changed successfully.");
             console.log(response);
-            router.push("/Patients/login");
+            router.push("/login");
         } catch (error) {
             console.log(error);
         }
@@ -83,11 +88,12 @@ export default function ChangePassword() {
     return (
 
         <>
-
+           
+            <SessionCheck/>
             <div className="grid grid-cols-12 ">
 
 
-                <Sidebar />
+             
 
 
                 <div className="col-span-9">
@@ -142,3 +148,4 @@ export default function ChangePassword() {
         </>
     )
 }
+

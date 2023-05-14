@@ -3,6 +3,10 @@ import axios from "axios";
 
 export const axiosInstance = axios.create({
 
+
+
+
+// baseURL: 'http://localhost:3000/',
    baseURL: 'https://medgrid.up.railway.app/', // live
 
 

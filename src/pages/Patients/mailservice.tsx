@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "./Components/sidebar";
+import { axiosInstance } from "@/common/axios";
+import SessionCheck from "./Components/sessionCheck";
 
 export default function MailService() {
     const [receiver, setReceiver] = useState('');
@@ -29,12 +31,12 @@ export default function MailService() {
     }
     return (
         <>
-
+            <SessionCheck/>
 
             <div className="grid grid-cols-12 ">
 
 
-                <Sidebar />
+              
 
 
                 <div className="col-span-9">
@@ -154,3 +156,4 @@ ease-in-out">Send</button>
         </>
     )
 }
+
