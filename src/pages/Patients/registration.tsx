@@ -182,7 +182,7 @@ const RegistrationPage = () => {
                         Register
                     </button>
                     <p className="mt-5 text-sm font-light text-gray-500 dark:text-gray-400">
-                      Already have an account ? <label onClick={() => router.push("/Patients/login")} className="font-medium text-blue-400 text-primary-600 hover:underline dark:text-primary-500">Login</label>
+                      Already have an account ? <label onClick={() => router.push("/login")} className="font-medium text-blue-400 text-primary-600 hover:underline dark:text-primary-500">Login</label>
                     </p>
                 </form>
             </div>

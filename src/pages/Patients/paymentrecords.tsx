@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "./Components/sidebar";
 import { axiosInstance } from "@/common/axios";
+import SessionCheck from "./Components/sessionCheck";
 
 
 
@@ -54,6 +55,7 @@ export default function PaymentRecords() {
                 }));
 
                 setData(fetchedData);
+                console.log("fetched data", data);
             } catch (error) {
                 console.log("Error fetching payment records:", error);
             }
@@ -94,8 +96,9 @@ export default function PaymentRecords() {
 
     return (
         <>
+            <SessionCheck/>
             <div className="grid grid-cols-12">
-                <Sidebar />
+                
 
                 <div className="col-span-9">
                     <h1 className="px-4 mt-8 text-3xl font-semibold text-white">Payment History</h1>
@@ -221,3 +224,4 @@ export default function PaymentRecords() {
         </>
     )
 }
+

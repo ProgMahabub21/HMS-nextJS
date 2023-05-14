@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "./Components/sidebar";
 import { axiosInstance } from "@/common/axios";
 import { UUID } from "crypto";
+import SessionCheck from "./Components/sessionCheck";
 
 interface Doctor {
     id: number;
@@ -62,10 +63,10 @@ export default function ViewAppointment() {
 
     return (
         <>
+            <SessionCheck/>
             <div className="grid grid-cols-12 ">
 
 
-                <Sidebar />
 
 
                 <div className="col-span-9">
@@ -144,3 +145,4 @@ export default function ViewAppointment() {
         </>
     )
 }
+

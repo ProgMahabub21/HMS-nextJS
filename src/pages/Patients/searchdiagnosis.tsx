@@ -47,11 +47,11 @@ export default function SearchDiagnosis() {
     return (
         <>
             <div className="grid grid-cols-12 mx-auto ">
-                <Sidebar />
+              
                 <div className="col-span-9">
                     <div className="container flex flex-col min-h-screen mx-auto">
 
-                        <h1 className="px-4 text-3xl font-semibold">Diagnosis Test List</h1>
+                        <h1 className="px-4 text-3xl font-semibold text-white">Diagnosis Test List</h1>
 
                         <div className="flex-1">
                             <div className="p-4">

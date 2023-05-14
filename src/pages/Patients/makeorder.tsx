@@ -4,6 +4,7 @@ import { axiosInstance } from "@/common/axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from 'next/router';
+import SessionCheck from "./Components/sessionCheck";
 
 
 interface MedicineLists {
@@ -102,10 +103,11 @@ export default function SearchMedicine() {
 
     return (
         <>
+            <SessionCheck/>
             <div className="grid grid-cols-12 ">
 
 
-                <Sidebar />
+               
 
 
                 <div className="col-span-9">

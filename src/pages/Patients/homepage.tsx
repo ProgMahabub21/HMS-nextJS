@@ -3,14 +3,22 @@ import React from "react";
 import Image from "next/image";
 import logo from "/public/image/system-logo.png"
 import Link from "next/link";
+import { axiosInstance } from "@/common/axios";
+import SessionCheck from "./Components/sessionCheck";
+
 
 export default function HomePage() {
+
+    
+    
 
     return (
 
         <>
+            <SessionCheck/>
             <div className="grid grid-cols-12 ">
 
+            
                
                
 
@@ -23,3 +31,4 @@ export default function HomePage() {
         </>
     )
 }
+

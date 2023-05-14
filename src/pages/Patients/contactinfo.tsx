@@ -1,14 +1,15 @@
 import React from "react";
 import Sidebar from "./Components/sidebar";
+import SessionCheck from "./Components/sessionCheck";
 
 export default function ContactInfo() {
     return (
         <>
-
+            <SessionCheck/>
             <div className="grid grid-cols-12 ">
 
 
-                <Sidebar />
+               
 
 
                 <div className="col-span-9">

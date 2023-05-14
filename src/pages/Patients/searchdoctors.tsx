@@ -101,8 +101,7 @@ export default function ViewAppointment() {
             <div className="grid grid-cols-12 ">
 
 
-                <Sidebar />
-
+           
 
                 <div className="col-span-9">
                     <div className="container flex flex-col min-h-screen mx-auto ">

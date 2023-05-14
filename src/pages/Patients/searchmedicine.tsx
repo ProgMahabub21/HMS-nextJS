@@ -53,7 +53,7 @@ export default function SearchMedicine() {
             <div className="grid grid-cols-12 ">
 
 
-                <Sidebar />
+       
 
 
                 <div className="col-span-9">

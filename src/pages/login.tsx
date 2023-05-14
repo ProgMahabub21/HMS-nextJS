@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useForm } from 'react-hook-form';
-import { SubmitHandler } from 'react-hook-form';
+
 import lgimage from '/public/image/login-p.jpg'
-import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
+
 import { axiosInstance } from '@/common/axios';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -41,7 +41,7 @@ const LoginPage = () => {
         password
       });
 
-     
+      console.log(response);
       
       sessionStorage.setItem('userid', response.data.userid);
       sessionStorage.setItem('username', response.data.username);
@@ -53,11 +53,8 @@ const LoginPage = () => {
 
     } catch (error: any) {
       console.log(error);
-      if (error.response && error.response.status == 500)
+      if (error.response.status == 500)
         setErrors(error.response.status + " login Credential invalid");
-      else {
-          setErrors("An error occurred");
-        }
 
     }
 
