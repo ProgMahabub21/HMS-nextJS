@@ -108,22 +108,8 @@ const Sidenav = ({ children }: Props) => {
                             link: "/admin/doctor/doctor-add",
                         },
                     ],
-                }, {
-                    name: "Apponments",
-
-                    icon: <TbNote />,
-                    children: [
-                        {
-                            name: "Apponments List",
-                            link: "/admin/apponment",
-                        },
-                    ],
                 },
                 {
-                    name: "Products",
-                    link: "/Admin/products",
-                    icon: <FaFlipboard />,
-                }, {
                     name: "Logout",
                     link: "/admin",
                     icon: <BiLogOut />,

@@ -18,5 +18,7 @@ axiosInstance.interceptors.response.use(
   error => {
     if (error.response.status === 401) {
       window.location.href = '/admin';
+    }else{
+      return Promise.reject(error);
     }
   });
