@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "./Components/sidebar";
-import { axiosInstance } from "../common/axios";
+import { axiosInstance } from "../../common/axios";
 import { UUID } from "crypto";
 
 interface DoctorLists {
@@ -21,7 +21,7 @@ export default function ViewAppointment() {
         // Fetch diagnosis Listss data from API and set to state
         axiosInstance.get('patients/findadoctor')
             .then(response => {
-                
+
                 setDoctorLists(response.data);
                 setfilteredLists(response.data);
             })

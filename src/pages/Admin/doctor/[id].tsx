@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { axiosInstance } from "@/pages/common/axios";
+import { axiosInstance } from "@/common/axios";
 import { Patient } from "@/models/Patient";
 import { Doctor } from "@/models/Doctor";
 import Image from "next/image";

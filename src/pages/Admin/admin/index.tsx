@@ -3,16 +3,16 @@ import { axiosInstance } from "../../../common/axios";
 import { Patient } from "@/models/Patient";
 import { NextRouter, useRouter } from "next/router";
 import SearchBar from "@/components/searchbar";
+import { Admin } from "@/models/Admin";
 
 
 
 
-export default function Patients({ data }: { data: Patient[] }) {
+export default function Admins({ data }: { data: Admin[] }) {
     const router: NextRouter = useRouter();
 
     const handleRowClick = (id: string) => {
-        console.log(id)
-        router.push(`/admin/patient/${id}`)
+
     }
     return (
         <>
@@ -22,7 +22,7 @@ export default function Patients({ data }: { data: Patient[] }) {
                     <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             {
-                                Object.keys(data[0]).map((key, i) => {
+                                ["id", "firstName", "middleName", "lastName", "email", "phone"].map((key, i) => {
                                     return (
                                         <th key={i} className="px-6 py-3">
                                             {key}
@@ -35,26 +35,26 @@ export default function Patients({ data }: { data: Patient[] }) {
                     <tbody>
 
                         {
-                            data.map((patient, i) => {
+                            data.map((admin, i) => {
                                 return (
-                                    <tr className="bg-white dark:bg-gray-800 cursor-pointer" key={i} onClick={() => handleRowClick(patient.id)} >
+                                    <tr className="bg-white dark:bg-gray-800 cursor-pointer" key={i}  >
                                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {patient.id.slice(0, 4)}...
+                                            {admin.id}
                                         </th>
                                         <td className="px-6 py-4">
-                                            {patient.name}
+                                            {admin.firstName}
                                         </td>
                                         <td className="px-6 py-4">
-                                            {patient.email}
+                                            {admin.middleName}
                                         </td>
                                         <td className="px-6 py-4">
-                                            ********
+                                            {admin.lastName}
                                         </td>
                                         <td className="px-6 py-4">
-                                            {patient.phone}
+                                            {admin.email}
                                         </td>
                                         <td className="px-6 py-4">
-                                            {patient.address}
+                                            {admin.phone}
                                         </td>
                                     </tr>
                                 )
@@ -71,7 +71,7 @@ export default function Patients({ data }: { data: Patient[] }) {
 }
 
 export async function getServerSideProps({ }) {
-    const response = await axiosInstance.get<Patient[]>("/patients/finduser")
+    const response = await axiosInstance.get<Admin[]>("/admin")
     const data = response.data
     return { props: { data } }
 }
