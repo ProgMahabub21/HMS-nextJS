@@ -5,7 +5,7 @@ import { TbNote } from 'react-icons/tb'
 import NavItem from "./navitem";
 import Link from "next/link";
 import { AiOutlineUser } from "react-icons/ai";
-import {GrSearchAdvanced} from "react-icons/gr";
+import { GrSearchAdvanced } from "react-icons/gr";
 import { MdAdminPanelSettings } from "react-icons/md";
 
 interface Props {
@@ -123,11 +123,15 @@ const Sidenav = ({ children }: Props) => {
                     name: "Products",
                     link: "/Admin/products",
                     icon: <FaFlipboard />,
+                }, {
+                    name: "Logout",
+                    link: "/admin",
+                    icon: <FaFlipboard />,
                 }
             ];
 
             break;
-        
+
         case "patients":
             navBarItems = [
                 {
@@ -182,7 +186,7 @@ const Sidenav = ({ children }: Props) => {
                     name: "Diagnosis Services",
                     link: "/Patients/searchdiagnosis",
                     icon: <FaFlipboard />,
-                   
+
                 },
                 {
                     name: "Payment Records",
@@ -210,8 +214,8 @@ const Sidenav = ({ children }: Props) => {
                             link: "/Patients/logout",
                         }
                     ],
-                            
-                    
+
+
                 },
                 {
                     name: "Contact Us",
@@ -222,10 +226,10 @@ const Sidenav = ({ children }: Props) => {
             ];
 
             break;
-            
-                    
 
-        
+
+
+
 
         default:
             break;
@@ -273,7 +277,7 @@ const Sidenav = ({ children }: Props) => {
                         ))}
                     </ul>
 
-                    <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
+                    {/* <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
                         <NavItem title="test 2" icon={<FaFlipboard />} link="#" />
 
                         <li>
@@ -337,7 +341,7 @@ const Sidenav = ({ children }: Props) => {
                                 <span className="ml-3">Logout</span>
                             </Link>
                         </li>
-                    </ul>
+                    </ul> */}
                 </div>
             </aside>
             <div className="p-4 sm:ml-64">{children}</div>
