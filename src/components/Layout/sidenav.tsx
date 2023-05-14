@@ -57,7 +57,7 @@ const Sidenav = ({ children }: Props) => {
 
                 {
                     name: adminUser?.firstName + " " + adminUser?.lastName,
-                    link: "/admin/profile",
+                    link: `/admin/profile?id=${adminUser?.id}`,
                     icon: <AiOutlineUser />,
                 },
                 {

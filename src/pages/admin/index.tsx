@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { axiosInstance } from "@/common/axios";
 import { useRouter } from "next/router";
+import { cookies } from 'next/headers';
 
 export default function LoginPage() {
     const router = useRouter();
@@ -17,9 +18,16 @@ export default function LoginPage() {
             const response = await axiosInstance.post("/admin/login", {
                 email,
                 password,
+            }, {
+                withCredentials: true,
             });
 
             sessionStorage.setItem("admin", JSON.stringify(response.data));
+
+
+
+
+
 
             router.push("/admin/dashboard");
         } catch (error: any) {
