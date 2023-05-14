@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "./Components/sidebar";
-import { axiosInstance } from "@/common/axios";
+
 import { useRouter } from "next/router";
+import { axiosInstance } from "@/common/axios";
 
 export default  function UserProfile() {
 
