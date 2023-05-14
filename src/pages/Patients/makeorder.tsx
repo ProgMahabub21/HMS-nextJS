@@ -1,6 +1,6 @@
 import React, { useEffect, useState, } from "react";
 import Sidebar from "./Components/sidebar";
-import { axiosInstance } from "../common/axios";
+import { axiosInstance } from "@/common/axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from 'next/router';

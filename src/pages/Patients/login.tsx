@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { SubmitHandler } from 'react-hook-form';
 import lgimage from '/public/image/login-p.jpg'
 import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
-import { axiosInstance } from '../../common/axios';
+import { axiosInstance } from '@/common/axios';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 //import { redirect } from 'next/router';

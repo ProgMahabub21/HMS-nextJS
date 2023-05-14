@@ -5,7 +5,7 @@ import Link from 'next/link';
 import lgimage from "/public/image/login-p.jpg"
 import { Console } from "console";
 import {AiFillCheckCircle} from 'react-icons/ai'
-import { axiosInstance } from '../common/axios';
+import { axiosInstance } from '@/common/axios';
 import { useRouter } from 'next/router';
 
 const RegistrationPage = () => {

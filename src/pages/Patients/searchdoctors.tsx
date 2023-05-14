@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from "react";
 import Sidebar from "./Components/sidebar";
-import { axiosInstance } from "../../common/axios";
+import { axiosInstance } from "@/common/axios";
 import { UUID } from "crypto";
 import Image from 'next/image';
 import docimg from "/public/image/doctor/profile-picture-1.png";

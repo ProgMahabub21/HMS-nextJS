@@ -1,5 +1,5 @@
 import { Admin } from "@/models/Admin";
-import { axiosInstance } from "../../common/axios";
+import { axiosInstance } from "@/common/axios";
 import { getExpressSession } from "@/common/utils/session";
 import { useForm } from 'react-hook-form';
 

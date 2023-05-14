@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { axiosInstance } from '../common/axios';
+import { axiosInstance } from "@/common/axios";
 import { useRouter } from 'next/router';
 import Sidebar from "./Components/sidebar";
 export default function DeleteAccount() {

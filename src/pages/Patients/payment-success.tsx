@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-import { axiosInstance } from '../common/axios';
+import { axiosInstance } from '@/common/axios';
 
 
 const PaymentSuccessfulPage = () => {

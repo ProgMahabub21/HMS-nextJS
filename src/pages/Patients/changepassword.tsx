@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "./Components/sidebar";
 import { useRouter } from "next/router";
-import { axiosInstance } from "../common/axios";
+import { axiosInstance } from "@/common/axios";
 import { Session } from "inspector";
 
 export default function ChangePassword() {
