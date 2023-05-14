@@ -88,10 +88,10 @@ const Sidenav = ({ children }: Props) => {
                             name: "Patient List",
                             link: "/admin/patient",
                         },
-                        {
-                            name: "Add Patient",
-                            link: "/admin/patient/patient-add",
-                        },
+                        // {
+                        //     name: "Add Patient",
+                        //     link: "/admin/patient/patient-add",
+                        // },
                     ],
                 }, {
                     name: "Doctor",

@@ -4,6 +4,7 @@ import { NextRouter, useRouter } from "next/router";
 import SearchBar from "@/components/searchbar";
 import { Admin } from "@/models/Admin";
 import { axiosInstance } from "@/common/axios";
+import { getExpressSession } from "@/common/utils/session";
 
 
 
@@ -70,8 +71,15 @@ export default function Admins({ data }: { data: Admin[] }) {
     )
 }
 
-export async function getServerSideProps({ }) {
-    const response = await axiosInstance.get<Admin[]>("/admin")
+export async function getServerSideProps(ctx: any) {
+
+
+    const session = getExpressSession(ctx)
+    const response = await axiosInstance.get<Admin[]>("/admin", {
+        headers: {
+            cookie: session
+        }
+    })
     const data = response.data
     return { props: { data } }
 }

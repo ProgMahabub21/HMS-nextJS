@@ -47,7 +47,7 @@ export default function Doctors({ data }: { data: Doctor[] }) {
                         {
                             data.map((doctor, i) => {
                                 return (
-                                    <tr className="bg-white dark:bg-gray-800" key={i} onClick={() => handleRowClick(doctor.id)}>
+                                    <tr className="bg-white dark:bg-gray-800 cursor-pointer" key={i} onClick={() => handleRowClick(doctor.id)}>
                                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {doctor.id}
                                         </th>

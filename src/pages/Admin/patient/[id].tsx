@@ -24,6 +24,8 @@ export default function SinlePatient({ data }: { data: Patient }) {
             var response = await axiosInstance.delete(`/patients/deletepatients/${data.id}`)
             //show alert
             alert("Patient Deleted Successfully");
+            //push to back
+            router.push("/admin/patient");
         }
         catch (error) {
             //show alert
@@ -59,7 +61,7 @@ export default function SinlePatient({ data }: { data: Patient }) {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="grid grid-cols-12 ">
                     <div className="col-span-9">
-                        <h1>Patient</h1>
+                        <h1 className="h1">Patient</h1>
                         <div className="grid gap-6 mb-6 md:grid-cols-2">
 
                             <div>
