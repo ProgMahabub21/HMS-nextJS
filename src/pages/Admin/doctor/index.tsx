@@ -1,9 +1,9 @@
 import React from "react";
-import { axiosInstance } from "../@/common/axios";
 import { Doctor } from "@/models/Doctor";
 import Image from 'next/image';
 import { NextRouter, useRouter } from "next/router";
 import SearchBar from "@/components/searchbar";
+import { axiosInstance } from "@/common/axios";
 
 
 export default function Doctors({ data }: { data: Doctor[] }) {
