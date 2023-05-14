@@ -2,8 +2,8 @@ import { useRouter } from "next/router";
 import React from "react";
 import { FaFlipboard, FaBed } from "react-icons/fa";
 import { TbNote } from 'react-icons/tb'
+import { BiLogOut } from 'react-icons/bi'
 import NavItem from "./navitem";
-import Link from "next/link";
 import { AiOutlineUser } from "react-icons/ai";
 import { GrSearchAdvanced } from "react-icons/gr";
 import { MdAdminPanelSettings } from "react-icons/md";
@@ -126,7 +126,7 @@ const Sidenav = ({ children }: Props) => {
                 }, {
                     name: "Logout",
                     link: "/admin",
-                    icon: <FaFlipboard />,
+                    icon: <BiLogOut />,
                 }
             ];
 

@@ -11,16 +11,15 @@ export default function SingleDoctor({ data }: { data: Doctor }) {
 
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const onSubmit = (data: any) => {
+    const onSubmit = (updatedata: any) => {
         console.log(data);
-        updateDoctor(data);
+        updateDoctor(updatedata);
     };
 
-    function updateDoctor(data: any) {
-
+    async function updateDoctor(updatedata: any) {
 
         try {
-            const response = axiosInstance.patch(`/doctors/updatedoctors/${data.id}`, data);
+            const response = await axiosInstance.patch(`/doctor/updatedoctor/${data.id}`, updatedata);
             alert("Doctor Updated Successfully");
             //push to back
             router.push("/admin/doctor");
@@ -34,7 +33,9 @@ export default function SingleDoctor({ data }: { data: Doctor }) {
 
         <>
             <div className="grid grid-cols-12 ">
-                <form className="col-span-9">
+                <form className="col-span-9" onSubmit={
+                    handleSubmit(onSubmit)
+                }>
                     <h1>Doctor</h1>
                     <div className="grid gap-6 mb-6 md:grid-cols-2">
 
