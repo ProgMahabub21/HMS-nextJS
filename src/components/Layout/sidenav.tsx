@@ -5,6 +5,7 @@ import { TbNote } from 'react-icons/tb'
 import NavItem from "./navitem";
 import Link from "next/link";
 import { AiOutlineUser } from "react-icons/ai";
+import {GrSearchAdvanced} from "react-icons/gr";
 import { MdAdminPanelSettings } from "react-icons/md";
 
 interface Props {
@@ -126,6 +127,105 @@ const Sidenav = ({ children }: Props) => {
             ];
 
             break;
+        
+        case "patients":
+            navBarItems = [
+                {
+                    name: "Dashboard",
+                    link: "/Patients/homepage",
+                    icon: <FaFlipboard />,
+                },
+                {
+                    name: "Our Medical Service",
+                    icon: <GrSearchAdvanced />,
+                    children: [
+                        {
+                            name: "Find Doctors",
+                            link: "/Patients/searchdoctors",
+                        },
+                        {
+                            name: "Apponments",
+                            link: "/Patients/viewappointment",
+                        },
+                        {
+                            name: "Prescriptions",
+                            link: "/Patients/viewprescription",
+                        },
+                        {
+                            name: "Mail Our Doctor",
+                            link: "/Patients/mailservice",
+                        },
+                    ],
+
+                },
+                {
+                    name: "Online Pharmacy Service",
+                    icon: <FaFlipboard />,
+                    children: [
+                        {
+                            name: "Find Medicine",
+                            link: "/Patients/searchmedicine",
+
+                        },
+                        {
+                            name: "Order Medicine",
+                            link: "/Patients/makeorder",
+                        },
+                        {
+                            name: "View Orders",
+                            link: "/Patients/orderlist",
+                        },
+                    ],
+
+                },
+                {
+                    name: "Diagnosis Services",
+                    link: "/Patients/searchdiagnosis",
+                    icon: <FaFlipboard />,
+                   
+                },
+                {
+                    name: "Payment Records",
+                    link: "/Patients/paymentrecords",
+                    icon: <FaFlipboard />,
+                },
+                {
+                    name: "Your Profile",
+                    icon: <AiOutlineUser />,
+                    children: [
+                        {
+                            name: "View Profile",
+                            link: "/Patients/profile",
+                        },
+                        {
+                            name: "Change Password",
+                            link: "/Patients/changepassword",
+                        },
+                        {
+                            name: "Delete Account",
+                            link: "/Patients/deleteaccount",
+                        },
+                        {
+                            name: "Logout",
+                            link: "/Patients/logout",
+                        }
+                    ],
+                            
+                    
+                },
+                {
+                    name: "Contact Us",
+                    link: "/Patients/contactinfo",
+                    icon: <FaFlipboard />,
+                }
+
+            ];
+
+            break;
+            
+                    
+
+        
 
         default:
             break;

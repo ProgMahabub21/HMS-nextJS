@@ -11,6 +11,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const hideSideBar = [
     '/admin',
+    '/Patients',
   ]
 
   if (hideSideBar.includes(router.pathname)) {
