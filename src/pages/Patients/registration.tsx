@@ -5,8 +5,11 @@ import Link from 'next/link';
 import lgimage from "/public/image/login-p.jpg"
 import { Console } from "console";
 import {AiFillCheckCircle} from 'react-icons/ai'
+import { axiosInstance } from '@/common/axios';
+import { useRouter } from 'next/router';
 
 const RegistrationPage = () => {
+    const router =  useRouter();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -14,6 +17,8 @@ const RegistrationPage = () => {
     const [address, setAddress] = useState('');
     const [picture, setPicture] = useState<File | null>(null);
     const [isSuccessful, setIsSuccessful] = useState(false);
+    const [isFailed , setFailed] = useState(false);
+    const [errors, setErrors] = useState('');
 
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value);
@@ -44,11 +49,29 @@ const RegistrationPage = () => {
         }
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const  handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         // Handle form submission here
         console.log(name, email, password, phone, address, picture);
-        setIsSuccessful(true);
+        try {
+            const response = await axiosInstance.post('/patients/registration', {
+              name,
+              email,
+              password,
+              phone,
+              address
+            });
+            setIsSuccessful(true);
+      
+            
+      
+          } catch (error: any) {
+            setFailed(true);
+            console.log(error);
+            setErrors(error.response.data.message);
+      
+          }
+        
     };
 
     return (
@@ -66,14 +89,23 @@ const RegistrationPage = () => {
             <div className="flex items-center justify-center flex-1 md:w-1/2">
                 <form onSubmit={handleSubmit} className="w-full max-w-md">
                     {isSuccessful && (
-                        <div className="flex items-center justify-start my-4 text-green-500 space-between alert alert-success">
-                            <AiFillCheckCircle />Registration request submitted successfully!
+                        <div  className="flex items-center justify-start my-4 text-green-500 space-between alert alert-success">
+                            <AiFillCheckCircle />Registration done successfully!
+                            
                         </div>
+                        
+                    )}
+                    {isFailed && (
+                        <div  className="flex items-center justify-start my-4 text-green-500 space-between alert alert-success">
+                            <AiFillCheckCircle />Invalid Registration request!
+                            
+                        </div>
+                        
                     )}
                     <h2 className="mb-4 text-2xl font-bold">Register</h2>
 
-                    <label htmlFor="name" className="block mb-2 font-medium">
-                        Name
+                    <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Full Name
                     </label>
                     <input
                         type="text"
@@ -84,7 +116,7 @@ const RegistrationPage = () => {
                         className="block w-full h-8 mb-4 border-gray-400 rounded-md shadow-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
 
-                    <label htmlFor="email" className="block mb-2 font-medium">
+                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Email
                     </label>
                     <input
@@ -96,7 +128,7 @@ const RegistrationPage = () => {
                         className="block w-full h-8 mb-4 border-gray-400 rounded-md shadow-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
 
-                    <label htmlFor="password" className="block mb-2 font-medium">
+                    <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Password
                     </label>
                     <input
@@ -108,7 +140,7 @@ const RegistrationPage = () => {
                         className="block w-full h-8 mb-4 border-gray-400 rounded-md shadow-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
 
-                    <label htmlFor="phone" className="block mb-2 font-medium">
+                    <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Phone
                     </label>
                     <input
@@ -120,7 +152,7 @@ const RegistrationPage = () => {
                         className="block w-full h-8 mb-4 border-gray-400 rounded-md shadow-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
 
-                    <label htmlFor="address" className="block mb-2 font-medium">
+                    <label htmlFor="address" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Address
                     </label>
                     <input
@@ -131,8 +163,8 @@ const RegistrationPage = () => {
                         onChange={handleAddressChange}
                         className="block w-full h-8 mb-4 border-gray-400 rounded-md shadow-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
-                    <label htmlFor="picture" className="block mb-2 font-medium">
-                        Picture
+                    <label htmlFor="picture" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" >
+                       Upload Picture
                     </label>
                     <input
 
@@ -140,7 +172,7 @@ const RegistrationPage = () => {
                         id="picture"
                         name="picture"
                         onChange={handlePictureChange}
-                        className="block w-full h-8 mb-4 border-gray-400 rounded-md shadow-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        className="block w-full my-4 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                     />
 
                     <button
@@ -149,6 +181,9 @@ const RegistrationPage = () => {
                     >
                         Register
                     </button>
+                    <p className="mt-5 text-sm font-light text-gray-500 dark:text-gray-400">
+                      Already have an account ? <label onClick={() => router.push("/Patients/login")} className="font-medium text-blue-400 text-primary-600 hover:underline dark:text-primary-500">Login</label>
+                    </p>
                 </form>
             </div>
         </div>

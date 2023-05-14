@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "./Components/sidebar";
-import { axiosInstance } from "../../common/axios";
+import { axiosInstance } from "@/common/axios";
 
 
 interface MedicineLists {

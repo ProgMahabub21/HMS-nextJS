@@ -3,8 +3,16 @@ import React from "react";
 import Image from "next/image";
 import logo from "/public/image/system-logo.png"
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Sidebar = (props: any) => {
+
+    const router = useRouter();
+
+    const handlelogoutevent = () => {
+        sessionStorage.clear();
+        router.push('/Patients/login')
+    }
     return (
         <div className="col-span-3 overflow-y-scroll text-white bg-gray-900 divide-y-2 overscroll-behavior-y-auto ">
         <div className="flex justify-start px-3 py-4 my-4">
@@ -34,7 +42,7 @@ const Sidebar = (props: any) => {
             <Link href="/Patients/profile" className="flex items-center px-4 py-2 space-x-3 font-bold text-gray-300 hover:text-white">Profile</Link>
             <Link href="/Patients/changepassword" className="flex items-center px-4 py-2 space-x-3 font-bold text-gray-300 hover:text-white">Change Password </Link>
             <Link href="/Patients/deleteaccount" className="flex items-center px-4 py-2 space-x-3 font-bold text-gray-300 hover:text-white">Delete Account</Link>
-            <Link href="/Patients/login" className="flex items-center px-4 py-2 space-x-3 font-bold text-gray-300 hover:text-white">Logout</Link>
+            <label onClick={handlelogoutevent} className="flex items-center px-4 py-2 space-x-3 font-bold text-gray-300 hover:text-white">Logout</label>
         </div>
         <div>
             <Link href="/Patients/contactinfo" className="flex items-center px-4 py-2 space-x-3 font-bold text-gray-300 hover:text-white">Contact Us</Link>

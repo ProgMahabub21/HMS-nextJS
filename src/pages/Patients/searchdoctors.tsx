@@ -1,7 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect, useRef } from "react";
 import Sidebar from "./Components/sidebar";
-import { axiosInstance } from "../../common/axios";
+import { axiosInstance } from "@/common/axios";
 import { UUID } from "crypto";
+import Image from 'next/image';
+import docimg from "/public/image/doctor/profile-picture-1.png";
+import { debounce } from "lodash";
+import { AiFillStar } from "react-icons/ai"
+import { useRouter } from "next/router";
 
 interface DoctorLists {
     id: number;
@@ -16,6 +21,42 @@ export default function ViewAppointment() {
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [medPerPage] = useState(15); // Number of Listss to display per page
+    const [showProfile, setShowProfile] = useState<number | null>(null);
+    const [position, setPosition] = useState({ top: 0, left: 0 });
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const profileRef = useRef<HTMLDivElement>(null);
+    const handleMouseEnter = debounce((id: number) => {
+        if (buttonRef.current) {
+            const buttonRect = buttonRef.current.getBoundingClientRect();
+           setPosition({ top: buttonRect.top - 888, left: 0 });
+            setShowProfile(id);
+        }
+    }, 100);
+    const handleMouseLeave = debounce((e: React.MouseEvent<HTMLDivElement>, id: number) => {
+        if (!e.relatedTarget || !profileRef.current) return;
+        if (profileRef.current.contains(e.relatedTarget as Node)) return;
+        setShowProfile(prevProfile => prevProfile === id ? null : prevProfile);
+
+    },);
+
+    const router = useRouter();
+
+    useLayoutEffect(() => {
+        if (!buttonRef.current) {
+            return;
+        }
+        else if (!profileRef.current) {
+            return;
+        }
+        const buttonRect = buttonRef.current?.getBoundingClientRect() as DOMRect;
+        const profileRect = profileRef.current?.getBoundingClientRect() as DOMRect;
+       // const hasSpaceAbove = buttonRect.top > profileRect.height;
+        // const top =  buttonRect.top + 8  ;
+        // const left = buttonRect.left + (buttonRect.width - profileRect.width) / 2;
+        // setPosition({ top, left });
+
+        // console.log(top , " " , left)
+    }, [showProfile]);
 
     useEffect(() => {
         // Fetch diagnosis Listss data from API and set to state
@@ -26,7 +67,7 @@ export default function ViewAppointment() {
                 setfilteredLists(response.data);
             })
             .catch(error => {
-                console.error('Error fetching appointment Lists:', error);
+                console.error('Error fetching doctor Lists:', error);
             });
     }, []);
 
@@ -48,6 +89,12 @@ export default function ViewAppointment() {
     // Change page
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
+    const handlerowclick = (id: number) => {
+        
+        console.log(id)
+        router.push(`/Patients/appointment/doctor-profile/${id}`)
+
+    }
 
     return (
         <>
@@ -60,11 +107,11 @@ export default function ViewAppointment() {
                 <div className="col-span-9">
                     <div className="container flex flex-col min-h-screen mx-auto ">
 
-                        <h1 className="px-4 text-3xl font-semibold">Doctor List</h1>
+                        <h1 className="px-4 mt-8 text-3xl font-semibold text-white">Find Doctors</h1>
 
-                        <div className="flex-1">
+                        <div className="flex-1 mt-8">
                             <div className="p-4">
-                                <form>
+                                <form >
                                     <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                                     <div className="relative">
                                         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -74,11 +121,11 @@ export default function ViewAppointment() {
                                             onChange={handleSearch} required />
                                         <button type="submit" className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
                                     </div>
-                                </form>
-                                <table className="w-full my-2 text-sm text-left text-gray-500 dark:text-gray-400">
+                                </form >
+                                <table className="w-full my-2 mt-8 text-sm text-left text-gray-500 dark:text-gray-400">
                                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 rounded-t-md">
                                         <tr>
-                                            <th scope="col" className="px-6 py-3">Doctor ID</th>
+                                            <th scope="col" className="px-6 py-3">Doctor Profile</th>
                                             <th scope="col" className="px-6 py-3">Doctor Name</th>
                                             <th scope="col" className="px-6 py-3">Specilization</th>
                                             <th scope="col" className="px-6 py-3">Email</th>
@@ -86,8 +133,82 @@ export default function ViewAppointment() {
                                     </thead>
                                     <tbody>
                                         {currentLists.map(Lists => (
+
                                             <tr key={Lists.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <td className="px-6 py-4">{Lists.id}</td>
+                                                <td className="px-6 py-4">
+
+                                                    <div 
+                                                        className="relative"
+                                                    >
+                                                        <button
+                                                            ref={buttonRef}
+                                                            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-1.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                                                            onMouseEnter={() => handleMouseEnter(Lists.id)}
+                                                        >
+                                                            View profile
+                                                        </button>
+                                                        <div
+                                                            ref={profileRef}
+                                                            className={`absolute p-4 dark: bg-gray-800 dark:border-gray-600 border-white rounded-lg shadow-lg transition-opacity duration-300 z-10 ${showProfile === Lists.id ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                                                                }`}
+
+                                                                onMouseEnter={() => setShowProfile(Lists.id)}
+                                                                onMouseLeave={(e) => handleMouseLeave(e, Lists.id)}
+
+                                                            style={{
+                                                                top: position.top,
+                                                                left: position.left,
+                                                            }}
+                                                        >
+                                                            <div className="p-3">
+                                                                <div className="flex items-center justify-between mb-2">
+                                                                    <a href="#">
+                                                                        <Image className="w-10 h-10 rounded-full" src={docimg} alt="Jese Leos" />
+                                                                    </a>
+                                                                    <div>
+                                                                        <button type="button" onClick={() => {handlerowclick(Lists.id)}} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-1.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Take Appointment</button>
+                                                                    </div>
+                                                                </div>
+                                                                <p className="text-base font-semibold leading-none text-gray-900 dark:text-white">
+                                                                    <a href="#">{Lists.name} (ID:{Lists.id})</a>
+                                                                </p>
+                                                                <div className="flex items-center justify-between mb-2">
+                                                                    <p className="mb-3 text-sm font-normal">
+                                                                        <a href="#" className="hover:underline">@{Lists.name}</a>
+                                                                    </p>
+                                                                    <p className="mb-3 text-sm font-normal">
+                                                                        <a href="#">Joined Us- 3rd May, 2022</a>
+                                                                    </p>
+                                                                </div>
+
+
+                                                                <p className="mb-4 text-sm">Qualification : MBBS (DMC)  Experience: 20 yrs.</p>
+                                                                <ul className="flex text-sm">
+                                                                    <li className="mr-2">
+                                                                        <a href="#" className="hover:underline">
+                                                                            <span className="font-semibold text-gray-900 dark:text-white">799</span>
+                                                                            <span>Appointments</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#" className="flex items-center hover:underline">
+                                                                            <AiFillStar></AiFillStar>
+                                                                            <span className="font-semibold text-gray-900 dark:text-white">4.8  </span>
+                                                                            <span> Rating</span>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div data-popper-arrow></div>
+
+                                                        </div>
+                                                        
+
+                                                    </div>
+
+
+                                                </td>
+
                                                 <td className="px-6 py-4">{Lists.name}</td>
                                                 <td className="px-6 py-4">{Lists.specialization}</td>
                                                 <td className="px-6 py-4">{Lists.email}</td>

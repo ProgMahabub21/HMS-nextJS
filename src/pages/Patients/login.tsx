@@ -4,8 +4,9 @@ import { useForm } from 'react-hook-form';
 import { SubmitHandler } from 'react-hook-form';
 import lgimage from '/public/image/login-p.jpg'
 import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
-import { axiosInstance } from '../../common/axios';
+import { axiosInstance } from '@/common/axios';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 //import { redirect } from 'next/router';
 
 type LoginFormData = {
@@ -16,6 +17,10 @@ const LoginPage = () => {
   const router = useRouter();
   const { register, handleSubmit } = useForm<LoginFormData>();
   const [errors, setErrors] = useState('');
+
+  // defined sessionStorage
+
+  
 
   const onSubmit = async (data: LoginFormData) => {
 
@@ -36,11 +41,20 @@ const LoginPage = () => {
         password
       });
 
+     
+      
+      sessionStorage.setItem('userid', response.data.userid);
+      sessionStorage.setItem('username', response.data.username);
+      sessionStorage.setItem('usermail', response.data.email);
+      const session = sessionStorage.getItem('userid');
+      console.log('After Session data: '+ session);
+
       router.push('/Patients/homepage');
 
     } catch (error: any) {
       console.log(error);
-      setErrors(error.response.data.message);
+      if (error.response.status == 500)
+        setErrors(error.response.status + " login Credential invalid");
 
     }
 
@@ -98,9 +112,13 @@ const LoginPage = () => {
           >
             Log in
           </button>
-        </form>
+          <p className="mt-5 text-sm font-light text-gray-500 dark:text-gray-400">
+                      Don’t have an account yet? <label onClick={() => router.push("/Patients/registration")} className="font-medium text-blue-400 text-primary-600 hover:underline dark:text-primary-500">Sign up</label>
+          </p>
+        </form></div>
+
       </div>
-    </div>
+    
   );
 };
 

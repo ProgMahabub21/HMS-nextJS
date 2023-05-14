@@ -1,123 +1,146 @@
-// import React, {useState, useEffect} from "react";
-// import Sidebar from "./Components/sidebar";
-// import {axiosInstance} from "../common/axios";
+import React, { useState, useEffect } from "react";
+import Sidebar from "./Components/sidebar";
+import { axiosInstance } from "@/common/axios";
+import { useRouter } from "next/router";
 
-// export default function UserProfile() {
+export default  function UserProfile() {
 
-//     const [UserProfile, setUserProfile] = useState('');
-//     const [filteredLists, setfilteredLists] = useState('');
-//     const [searchTerm, setSearchTerm] = useState('');
-//     const [currentPage, setCurrentPage] = useState(1);
-//     const [medPerPage] = useState(15); // Number of Listss to display per page
+    const router = useRouter();
 
-    
-//     useEffect(() => {
-//         // Fetch diagnosis Listss data from API and set to state
-//         axiosInstance.get('patients/finduserid/', )
-//             .then((response: { data: React.SetStateAction<string>; }) => {
-//                 setUserProfile(response.data);
-//                 setfilteredLists(response.data);
-//             })
-//             .catch(error => {
-//                 console.error('Error fetching diagnosis Listss:', error);
-//             });
-//     }, []);
-
-//     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-//         const term = event.target.value;
-//         setSearchTerm(term);
-//         // Filter diagnosis Listss based on search term
-//         const filtered = DoctorLists.filter(Lists =>
-//             Lists.name.toLowerCase().includes(term.toLowerCase())
-//         );
-//         setfilteredLists(filtered);
-//     };
-
-//     return (
-//         <>
-
-//             <div className="grid grid-cols-12 ">
+    const [user, setUser] = useState<{ id?: string, name?: string, email?: string, phone?: string, address?: string } | null>(null);
 
 
-//                 <Sidebar />
+    useEffect(() => {
+        async function fetchData() {
+            const session = await sessionStorage.getItem("userid");
+            if (!session) {
+                return {
+                    redirect: {
+                        destination: "/unauthorized",
+                        permanent: false,
+                    },
+                };
+            }
 
-
-//                 <div className="col-span-9">
-                    
-//                     <div className="container flex flex-col min-h-screen mx-auto ">
-
-//                         <h1 className="px-4 text-3xl font-semibold">Profile</h1>
-
-//                         <div className="flex-1">
-//                             <div className="p-4">
-//                                 <form>
-//                                     <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-//                                     <div className="relative">
-//                                         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-//                                             <svg aria-hidden="true" className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-//                                         </div>
-//                                         <input type="search" id="search" className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search by Account ID" value={searchTerm}
-//                                             onChange={handleSearch} required />
-//                                         <button type="submit" className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
-//                                     </div>
-//                                 </form>
-//                                 <table className="w-full my-2 text-sm text-left text-gray-500 dark:text-gray-400">
-//                                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 rounded-t-md">
-//                                         <tr>
-//                                             <th className="px-6 py-4">Account ID</th>
-//                                             <th className="px-6 py-4">Name</th>
-//                                             <th className="px-6 py-4">Email</th>
-//                                             <th className="px-6 py-4">Phone Number</th>
-//                                             <th className="px-6 py-4">Address</th>
-//                                         </tr>
-//                                     </thead>
-//                                     <tbody>
-//                                         {currentLists.map(Lists => (
-//                                             <tr key={Lists.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-//                                                 <td className="px-6 py-4">{Lists.id}</td>
-//                                                 <td className="px-6 py-4">{Lists.name}</td>
-//                                                 <td className="px-6 py-4">{Lists.specialization}</td>
-//                                                 <td className="px-6 py-4">{Lists.email}</td>
-//                                             </tr>
-//                                         ))}
-//                                     </tbody>
-//                                 </table>
-//                             </div>
-//                             <div className="flex">
-//                                 <div>
-//                                     <p className="justify-start h-5 px-4 text-gray-500">Showing {indexOfFirstLists + 1}-{Math.min(indexOfLastLists, filteredLists.length)} of {filteredLists.length} results</p>
-//                                 </div>
-//                                 <div className="flex justify-end px-48">
-
-//                                     <nav className="flex items-center space-x-20">
-//                                         <button
-//                                             className="px-4 py-2 text-white bg-gray-800 hover:bg-gray-700"
-//                                             onClick={() => paginate(currentPage - 1)}
-//                                             disabled={currentPage === 1}
-//                                         >
-//                                             Prev
-//                                         </button>
-
-//                                         <button
-//                                             className="px-4 py-2 text-white bg-gray-800 hover:bg-gray-700"
-//                                             onClick={() => paginate(currentPage + 1)}
-//                                             disabled={currentPage === Math.ceil(filteredLists.length / medPerPage)}
-//                                         >
-//                                             Next
-//                                         </button>
-//                                     </nav>
-//                                 </div>
-//                             </div>
-
-//                         </div>
-//                     </div>
-//                 </div>
-
-
-
-//             </div>
-
+            // Fetch user profile data
+            const userData = await axiosInstance.get(`/patients/finduserid/${session}`
+            );
+            setUser(userData.data);
             
-//         </>
-//     )
-// }
+        }
+        fetchData();
+    }, []);
+
+    if (!user) {
+        return <div>Loading...</div>;
+    }
+    const handleUpdateEvent = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { id, value } = e.target;
+        setUser((prevState) => ({ ...prevState, [id]: value }));
+        console.log(user.name , user.email, user.phone, user.address);
+      };
+
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        // save those data in local variable
+        const name = user.name;
+        const email = user.email;
+        const phone = user.phone;
+        const address = user.address;
+        try {
+            const response = await axiosInstance.patch(`/patients/updatepatients/${user.id}`, {
+                name,
+                email,
+                phone,
+                address
+            });
+            
+            alert("Account updated successfully.");
+            console.log(response);
+            router.push("/Patients/homepage");
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    return (
+        <>
+        
+            <div className="grid grid-cols-12 ">
+
+
+                <Sidebar />
+
+
+                <div className="col-span-9">
+
+                    <div className="container flex flex-col min-h-screen mx-auto justify-evenly ">
+
+                        <h1 className="px-4 text-3xl font-semibold">Account Profile</h1>
+
+                        <div className="flex-1">
+                            <div className="p-4">
+                                <form onSubmit={onSubmit}>
+                                   
+
+                                        <div className="w-full md:w-1/2 md:pr-2">
+                                            <label htmlFor="user_id" className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Account ID</label>
+                                            <input type="text" id="id" defaultValue={user?.id} disabled
+                                                className="w-full px-3 py-2 mb-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" />
+                                        </div>
+                                        <div className="w-full md:w-1/2 md:pr-2">
+                                            <label htmlFor="full_name" className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Full Name</label>
+                                            <input type="text" id="name" defaultValue={user?.name} onChange={handleUpdateEvent}
+                                                className="w-full px-3 py-2 mb-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" />
+
+                                        </div>
+                                        <div className="w-full md:w-1/2 md:pr-2">
+                                            <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Email</label>
+                                            <input type="text" id="email" defaultValue={user?.email} onChange={handleUpdateEvent}
+
+                                                className="w-full px-3 py-2 mb-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" />
+
+                                        </div>
+                                        <div className="w-full md:w-1/2 md:pr-2">
+                                            <label htmlFor="phone_number" className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Phone Number</label>
+                                            <input type="text" id="phone" defaultValue={user?.phone}  onChange={handleUpdateEvent}
+                                                className="w-full px-3 py-2 mb-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" />
+
+                                        </div>
+
+                                        <div className="w-full md:w-1/2 md:pr-2">
+                                            <label htmlFor="address" className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Address</label>
+                                            <input type="text" id="address" defaultValue={user?.address}  onChange={handleUpdateEvent}
+
+                                                className="w-full px-3 py-2 mb-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" />
+                                        </div>
+
+
+                                    <div className="flex mt-6 justify-left">
+                                        <button type="submit" className="px-4 py-2 mr-2 font-semibold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline">Update</button>
+                                        <button type="button" onClick={() => router.back()} className="px-4 py-2 font-semibold text-gray-700 bg-gray-200 rounded hover:bg-gray-300 focus:outline-none focus:shadow-outline">Cancel</button>
+                                    </div>
+
+                                 
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+        </>
+    )
+}
+
+
+
+
+
+
+

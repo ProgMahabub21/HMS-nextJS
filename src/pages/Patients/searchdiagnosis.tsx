@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "./Components/sidebar";
-import axios from 'axios';
+import {axiosInstance} from '@/common/axios';
 
 interface DiagnosisTest {
     id: number;
@@ -17,7 +17,7 @@ export default function SearchDiagnosis() {
 
     useEffect(() => {
         // Fetch diagnosis tests data from API and set to state
-        axios.get('http://localhost:3000/patients/diagnosis')
+        axiosInstance.get('/patients/diagnosis')
             .then(response => {
                 setDiagnosisTests(response.data);
                 setFilteredTests(response.data);
