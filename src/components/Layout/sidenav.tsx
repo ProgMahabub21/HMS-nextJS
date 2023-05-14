@@ -3,6 +3,9 @@ import React from "react";
 import { FaFlipboard, FaBed } from "react-icons/fa";
 import { TbNote } from 'react-icons/tb'
 import NavItem from "./navitem";
+import Link from "next/link";
+import { AiOutlineUser } from "react-icons/ai";
+import { MdAdminPanelSettings } from "react-icons/md";
 
 interface Props {
     children: React.ReactNode;
@@ -24,23 +27,57 @@ const Sidenav = ({ children }: Props) => {
         }[];
     }[] = [];
 
-    console.log("length ", router.pathname.split("/").length);
+    // console.log("length ", router.pathname.split("/").length);
 
-    // if (router.pathname.split("/").length == 2) {
-    //     return (<div><h1>H1</h1></div>
-    //     )
-    // }
+    // console.log("currentPageName ", currentPageName);
 
 
-    console.log("currentPageName ", currentPageName);
+
+    // console.log("admin ", sessionStorage.getItem("admin"));
+
+
+
+
+    try {
+        var adminUser = JSON.parse(sessionStorage.getItem("admin") || '{}')?.admin;
+
+        console.log("adminUser ", adminUser);
+    } catch (error) {
+
+    }
+
+
+
+
 
     switch (currentPageName.toLocaleLowerCase()) {
         case "admin":
             navBarItems = [
+
+                {
+                    name: adminUser?.firstName + " " + adminUser?.lastName,
+                    link: "/admin/profile",
+                    icon: <AiOutlineUser />,
+                },
                 {
                     name: "Dashboard",
                     link: "/admin/dashboard",
                     icon: <FaFlipboard />,
+                },
+                {
+                    name: "Admin",
+
+                    icon: <MdAdminPanelSettings />,
+                    children: [
+                        {
+                            name: "Admin List",
+                            link: "/admin/admin",
+                        },
+                        {
+                            name: "Add Admin",
+                            link: "/admin/admin/admin-add",
+                        },
+                    ],
                 },
                 {
                     name: "Patients",
@@ -180,7 +217,7 @@ const Sidenav = ({ children }: Props) => {
                             </a>
                         </li>
                         <li>
-                            <a
+                            <Link
                                 href="/admin"
                                 className="flex items-center p-2 text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
                             >
@@ -198,7 +235,7 @@ const Sidenav = ({ children }: Props) => {
                                     ></path>
                                 </svg>
                                 <span className="ml-3">Logout</span>
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>
