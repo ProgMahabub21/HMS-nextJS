@@ -3,8 +3,9 @@ import { axiosInstance } from "@/common/axios";
 import { getExpressSession } from "@/common/utils/session";
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { GetServerSidePropsContext } from "next";
+import { cookies } from 'next/headers';
 
-export default function AdminProfile({ data, session }: { data: Admin, session: any },) {
+export default function AdminProfile({ data, id }: { data: Admin, id: any },) {
 
     const { register, handleSubmit, watch, control, reset, formState: { errors } } = useForm<any>();
 
@@ -12,10 +13,13 @@ export default function AdminProfile({ data, session }: { data: Admin, session: 
 
 
     const onSubmit: SubmitHandler<any> = data => {
+
+        // var adminUser = JSON.parse(sessionStorage.getItem("admin") || '{}')?.admin;
+
         try {
-            axiosInstance.patch(`/admin/me`, data, {
+            axiosInstance.patch(`/admin/${id}`, data, {
                 headers: {
-                    cookie: session
+                    // cookie: session
                 }
             })
             alert("Profile updated successfully")
@@ -113,10 +117,13 @@ export default function AdminProfile({ data, session }: { data: Admin, session: 
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 
+    //get id from query
+    const { id } = ctx.query
 
     const session = getExpressSession(ctx)
 
-    const response = await axiosInstance.get<Admin>("/admin/me", { headers: { cookie: session } })
+
+    const response = await axiosInstance.get<Admin>(`/admin/${id}`, { headers: { cookie: session } })
     const data = response.data
-    return { props: { data, session } }
+    return { props: { data, id } }
 }
