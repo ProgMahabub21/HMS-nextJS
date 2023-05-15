@@ -35,7 +35,7 @@ export default function OrderCheckoutPage({ cartItems }: { cartItems: MedicineLi
         }));
 
         const session = await stripe.checkout.sessions.create({
-            success_url: `https://hms-next-js-git-main-progmahabub21.vercel.app/Patients/payment-success?cartItems=${JSON.stringify(
+            success_url: `https://hms-next-js.vercel.app/Patients/payment-success?cartItems=${JSON.stringify(
                 cartItems
             )}&userId=${userid}&amount=${total}&sessionId=\{CHECKOUT_SESSION_ID}`, // Update with your actual success URL and user ID
             line_items: lineItems,
