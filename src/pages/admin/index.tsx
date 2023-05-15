@@ -67,6 +67,7 @@ export default function LoginPage() {
                             placeholder="john.doe@company.com"
 
                             onChange={(e) => setEmail(e.target.value)}
+                            required
                         />
                     </div>
 
@@ -84,6 +85,7 @@ export default function LoginPage() {
                             placeholder="•••••••••"
 
                             onChange={(e) => setPassword(e.target.value)}
+                            required
                         />
                     </div>
                     <button
