@@ -15,12 +15,12 @@ type LoginFormData = {
 };
 const LoginPage = () => {
   const router = useRouter();
-  const { register, handleSubmit } = useForm<LoginFormData>();
-  const [errors, setErrors] = useState('');
+  const { register, handleSubmit, watch, control, reset, formState: { errors } } = useForm<any>();
+  // const [errors, setErrors] = useState('');
 
   // defined sessionStorage
 
-  
+
 
   const onSubmit = async (data: LoginFormData) => {
 
@@ -41,23 +41,23 @@ const LoginPage = () => {
         password
       });
 
-     
-      
+
+
       sessionStorage.setItem('userid', response.data.userid);
       sessionStorage.setItem('username', response.data.username);
       sessionStorage.setItem('usermail', response.data.email);
       const session = sessionStorage.getItem('userid');
-      console.log('After Session data: '+ session);
+      console.log('After Session data: ' + session);
 
       router.push('/Patients/homepage');
 
     } catch (error: any) {
       console.log(error);
-      if (error.response && error.response.status == 500)
-        setErrors(error.response.status + " login Credential invalid");
-      else {
-          setErrors("An error occurred");
-        }
+      // if (error.response && error.response.status == 500)
+      //   // setErrors(error.response.status + " login Credential invalid");
+      // else {
+      //   // setErrors("An error occurred");
+      // }
 
     }
 
@@ -70,6 +70,7 @@ const LoginPage = () => {
 
   return (
     <div className="flex flex-col min-h-screen md:flex-row">
+
       <div className="flex items-center justify-cente md:w-1/2">
         <Image
           src={lgimage}
@@ -78,10 +79,7 @@ const LoginPage = () => {
         />
       </div>
       <div className="flex items-center justify-center bg-gray-100 md:w-1/2">
-        {errors && <div className="relative px-4 py-3 text-red-700 bg-red-100 border border-red-400 rounded" role="alert">
-          <strong className="font-bold">Error!</strong>
-          <span className="block sm:inline">{errors}</span>
-        </div>}
+
         <form
           className="max-w-sm p-8 bg-white rounded-lg shadow-md"
           onSubmit={handleSubmit(onSubmit)}
@@ -97,6 +95,10 @@ const LoginPage = () => {
               id="email"
               {...register('email', { required: true })}
             />
+            {
+              errors.email && <span className="text-red-500">This field is required</span>
+            }
+
           </div>
           <div className="mb-6">
             <label className="block mb-2 font-bold text-gray-700" htmlFor="password">
@@ -108,6 +110,9 @@ const LoginPage = () => {
               id="password"
               {...register('password', { required: true })}
             />
+            {
+              errors.password && <span className="text-red-500">This field is required</span>
+            }
           </div>
           <button
             className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-700"
@@ -116,12 +121,12 @@ const LoginPage = () => {
             Log in
           </button>
           <p className="mt-5 text-sm font-light text-gray-500 dark:text-gray-400">
-                      Don’t have an account yet? <label onClick={() => router.push("/Patients/registration")} className="font-medium text-blue-400 text-primary-600 hover:underline dark:text-primary-500">Sign up</label>
+            Don’t have an account yet? <label onClick={() => router.push("/Patients/registration")} className="font-medium text-blue-400 text-primary-600 hover:underline dark:text-primary-500">Sign up</label>
           </p>
         </form></div>
 
-      </div>
-    
+    </div>
+
   );
 };
 

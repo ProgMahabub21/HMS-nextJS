@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { axiosInstance } from "@/common/axios";
 import { Patient } from "@/models/Patient";
 import { NextRouter, useRouter } from "next/router";
@@ -10,6 +10,27 @@ import SessionCheckAdmin from "@/pages/Patients/Components/sessionCheckADmin";
 
 export default function Patients({ data }: { data: Patient[] }) {
     const router: NextRouter = useRouter();
+    const [filteredLists, setfilteredLists] = useState<Patient[]>([]);
+    const [search, setSearch] = React.useState<string>("");
+
+
+    React.useEffect(() => {
+        setfilteredLists(
+            data.filter((patient) =>
+                patient.name.toLowerCase().includes(search.toLowerCase())
+            )
+        );
+    }, [search, data]);
+
+    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(event.target.value);
+        const term = event.target.value;
+        const filtered = data.filter(Lists =>
+            Lists.name.toLowerCase().includes(term.toLowerCase())
+        );
+        setfilteredLists(filtered);
+    };
+
 
     const handleRowClick = (id: string) => {
         console.log(id)
@@ -18,7 +39,7 @@ export default function Patients({ data }: { data: Patient[] }) {
     return (
         <>
             <SessionCheckAdmin />
-            <SearchBar placeholder="search..." onSubmit={() => { }} />
+            <SearchBar placeholder="search..." onChange={handleSearch} />
             <div className="relative overflow-x-auto">
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
@@ -37,7 +58,7 @@ export default function Patients({ data }: { data: Patient[] }) {
                     <tbody>
 
                         {
-                            data.map((patient, i) => {
+                            filteredLists.map((patient, i) => {
                                 return (
                                     <tr className="bg-white dark:bg-gray-800 cursor-pointer" key={i} onClick={() => handleRowClick(patient.id)} >
                                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
