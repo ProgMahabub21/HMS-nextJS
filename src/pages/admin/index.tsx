@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { axiosInstance } from "@/common/axios";
 import { useRouter } from "next/router";
 import { cookies } from 'next/headers';
@@ -10,6 +10,13 @@ export default function LoginPage() {
     const [password, setPassword] = useState("");
 
     const [errors, setErrors] = useState("");
+
+    useEffect(() => {
+        if (window) {
+            // set props data to session storage or local storage  
+            sessionStorage.clear();
+        }
+    }, []);
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
@@ -23,12 +30,6 @@ export default function LoginPage() {
             });
 
             sessionStorage.setItem("admin", JSON.stringify(response.data));
-
-
-
-
-
-
             router.push("/admin/dashboard");
         } catch (error: any) {
             console.log(error);
