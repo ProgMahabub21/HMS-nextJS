@@ -5,6 +5,7 @@ import SearchBar from "@/components/searchbar";
 import { Admin } from "@/models/Admin";
 import { axiosInstance } from "@/common/axios";
 import { getExpressSession } from "@/common/utils/session";
+import SessionCheckAdmin from "@/pages/Patients/Components/sessionCheckADmin";
 
 
 
@@ -17,6 +18,7 @@ export default function Admins({ data }: { data: Admin[] }) {
     }
     return (
         <>
+            <SessionCheckAdmin />
             <SearchBar placeholder="search..." onSubmit={() => { }} />
             <div className="relative overflow-x-auto">
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">

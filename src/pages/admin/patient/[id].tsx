@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { axiosInstance } from "@/common/axios";
 import { Patient } from "@/models/Patient";
 import router from "next/router";
+import SessionCheckAdmin from "@/pages/Patients/Components/sessionCheckADmin";
 
 export default function SinlePatient({ data }: { data: Patient }) {
 
@@ -58,6 +59,7 @@ export default function SinlePatient({ data }: { data: Patient }) {
     return (
 
         <>
+            <SessionCheckAdmin />
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="grid grid-cols-12 ">
                     <div className="col-span-9">

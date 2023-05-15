@@ -2,6 +2,7 @@ import React from "react";
 import router, { useRouter } from "next/router";
 import { axiosInstance } from "@/common/axios";
 import { useForm } from "react-hook-form";
+import SessionCheckAdmin from "@/pages/Patients/Components/sessionCheckADmin";
 
 export default function SingleDoctor() {
 
@@ -32,6 +33,7 @@ export default function SingleDoctor() {
     return (
 
         <>
+            <SessionCheckAdmin />
             <div className="grid grid-cols-12 ">
                 <form className="col-span-9" onSubmit={
                     handleSubmit(onSubmit)

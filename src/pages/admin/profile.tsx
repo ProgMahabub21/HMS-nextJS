@@ -4,6 +4,7 @@ import { getExpressSession } from "@/common/utils/session";
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { GetServerSidePropsContext } from "next";
 import { cookies } from 'next/headers';
+import SessionCheckAdmin from "../Patients/Components/sessionCheckADmin";
 
 export default function AdminProfile({ data, id }: { data: Admin, id: any },) {
 
@@ -30,7 +31,8 @@ export default function AdminProfile({ data, id }: { data: Admin, id: any },) {
 
 
     return (
-        <div className="flex justify-center pt-20">
+        <><SessionCheckAdmin /><div className="flex justify-center pt-20">
+
 
             <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
                 <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
@@ -41,15 +43,15 @@ export default function AdminProfile({ data, id }: { data: Admin, id: any },) {
                     </div>
                     {errors.email && <p className="text-red-500 text-xs italic">{errors.email.message?.toString()}</p>}
                     {/* <div>
-                        <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
-                        <input type="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" {...register("password", {
-                            required: "Email is required", minLength: {
-                                value: 8,
-                                message: "Password must be at least 8 characters"
-                            }
-                        })} />
-                    </div>
-                    {errors.password && <p className="text-red-500 text-xs italic">{errors.password.message?.toString()}</p>} */}
+        <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
+        <input type="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" {...register("password", {
+            required: "Email is required", minLength: {
+                value: 8,
+                message: "Password must be at least 8 characters"
+            }
+        })} />
+    </div>
+    {errors.password && <p className="text-red-500 text-xs italic">{errors.password.message?.toString()}</p>} */}
 
                     <div>
                         <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
@@ -95,21 +97,21 @@ export default function AdminProfile({ data, id }: { data: Admin, id: any },) {
                     {errors.middleName && <p className="text-red-500 text-xs italic">{errors.middleName.message?.toString()}</p>}
 
                     {/* <div className="flex items-start">
-                        <div className="flex items-start">
-                            <div className="flex items-center h-5">
-                                <input id="remember" type="checkbox" value="" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" />
-                            </div>
-                            <label htmlFor="remember" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
-                        </div>
-                        <a href="#" className="ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500">Lost Password?</a>
-                    </div> */}
+        <div className="flex items-start">
+            <div className="flex items-center h-5">
+                <input id="remember" type="checkbox" value="" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" />
+            </div>
+            <label htmlFor="remember" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
+        </div>
+        <a href="#" className="ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500">Lost Password?</a>
+    </div> */}
                     <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update</button>
                     {/* <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-                        Not registered? <a href="#" className="text-blue-700 hover:underline dark:text-blue-500">Create account</a>
-                    </div> */}
+        Not registered? <a href="#" className="text-blue-700 hover:underline dark:text-blue-500">Create account</a>
+    </div> */}
                 </form>
             </div>
-        </div>
+        </div></>
     );
 }
 

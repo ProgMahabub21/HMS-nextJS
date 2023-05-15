@@ -5,6 +5,7 @@ import { Patient } from "@/models/Patient";
 import { Doctor } from "@/models/Doctor";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
+import SessionCheckAdmin from "@/pages/Patients/Components/sessionCheckADmin";
 
 export default function SingleDoctor({ data }: { data: Doctor }) {
 
@@ -32,6 +33,7 @@ export default function SingleDoctor({ data }: { data: Doctor }) {
     return (
 
         <>
+            <SessionCheckAdmin />
             <div className="grid grid-cols-12 ">
                 <form className="col-span-9" onSubmit={
                     handleSubmit(onSubmit)

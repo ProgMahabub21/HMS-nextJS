@@ -8,7 +8,7 @@ const UnauthorizedPage = () => {
         <h1 className="mb-4 text-4xl font-bold text-white">Unauthorized | 401</h1>
         <p className="mb-4 text-xl text-white">You are not authorized to access this page.</p>
         <p className="mb-4 text-xl text-white">
-          Please <Link href="/login"className="text-blue-500">log in</Link> to continue.
+          {/* Please <Link href="/login"className="text-blue-500">log in</Link> to continue. */}
         </p>
       </div>
     </div>

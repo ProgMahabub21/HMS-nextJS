@@ -5,6 +5,7 @@ import Stripe from 'stripe';
 import { getServerSession } from "next-auth/next"
 import { getExpressSession } from "@/common/utils/session";
 import { axiosInstance } from "@/common/axios";
+import SessionCheckAdmin from "../Patients/Components/sessionCheckADmin";
 const stripe = new Stripe('sk_test_51N6KAlDVaqngytN0P2fbU2rv9HpZx55S0zfa9a88pzGmixwg6MZs0ay4gp12x6Mga6u2NxDtmRI2AeaMADikB5vM00u9Cqk2OQ', {
     apiVersion: '2022-11-15',
 });
@@ -15,6 +16,7 @@ export default function Dashboard({ data, appointment }: { data: Stripe.PaymentI
 
     return (
         <>
+            <SessionCheckAdmin />
             <div className="grid grid-cols-12">
                 <div className="col-span-full min-w-full">
                     <h1 className="h1">Dashboard</h1>
