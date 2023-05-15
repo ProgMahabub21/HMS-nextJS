@@ -13,6 +13,18 @@ export default function AdminProfile({ data, id }: { data: Admin, id: any },) {
 
 
 
+    async function resetPassword() {
+        try {
+            const res = await axiosInstance.post(`/admin/resetpassword`, {
+                email: data.email
+            })
+
+            alert("Password reset link sent to your email")
+        } catch (error) {
+            alert("Something went wrong")
+        }
+    }
+
     const onSubmit: SubmitHandler<any> = data => {
 
         // var adminUser = JSON.parse(sessionStorage.getItem("admin") || '{}')?.admin;
@@ -31,7 +43,7 @@ export default function AdminProfile({ data, id }: { data: Admin, id: any },) {
 
 
     return (
-        <><SessionCheckAdmin /><div className="flex justify-center pt-20">
+        <><SessionCheckAdmin /><div className="flex justify-center pt-5">
 
 
             <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
@@ -109,9 +121,15 @@ export default function AdminProfile({ data, id }: { data: Admin, id: any },) {
                     {/* <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
         Not registered? <a href="#" className="text-blue-700 hover:underline dark:text-blue-500">Create account</a>
     </div> */}
+
+                    {/* <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update</button> */}
+
+                    <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Forget Password <a onClick={resetPassword} className="text-blue-600 hover:underline dark:text-blue-500">click here</a></label>
+
+
                 </form>
-            </div>
-        </div></>
+            </div >
+        </div ></>
     );
 }
 

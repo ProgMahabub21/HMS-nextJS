@@ -79,7 +79,6 @@ const LoginPage = () => {
         />
       </div>
       <div className="flex items-center justify-center bg-gray-100 md:w-1/2">
-
         <form
           className="max-w-sm p-8 bg-white rounded-lg shadow-md"
           onSubmit={handleSubmit(onSubmit)}
