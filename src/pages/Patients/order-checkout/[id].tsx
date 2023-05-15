@@ -14,7 +14,7 @@ interface MedicineLists {
 export default function OrderCheckoutPage({ cartItems }: { cartItems: MedicineLists[] }) {
     const router = useRouter();
 
-    const  handleCheckout = async () => {
+    const handleCheckout = async () => {
         // Perform any necessary payment checkout logic
         // Redirect to Stripe's checkout page API
         // Replace 'YOUR_STRIPE_CHECKOUT_URL' with the actual URL provided by Stripe
@@ -36,18 +36,18 @@ export default function OrderCheckoutPage({ cartItems }: { cartItems: MedicineLi
 
         const session = await stripe.checkout.sessions.create({
             success_url: `https://hms-next-js-git-main-progmahabub21.vercel.app/Patients/payment-success?cartItems=${JSON.stringify(
-              cartItems
+                cartItems
             )}&userId=${userid}&amount=${total}&sessionId=\{CHECKOUT_SESSION_ID}`, // Update with your actual success URL and user ID
             line_items: lineItems,
             mode: 'payment',
             client_reference_id: userid,
-          });
-        
+        });
+
         console.log(session.id);
         window.location.href = session.url;
 
         // Calculate Subtotal
-       
+
 
     };
     const calculateSubtotal = () => {
@@ -71,9 +71,6 @@ export default function OrderCheckoutPage({ cartItems }: { cartItems: MedicineLi
     return (
         <>
             <div className="grid grid-cols-12 ">
-
-
-                <Sidebar />
 
 
                 <div className="col-span-9">
